@@ -1,0 +1,13 @@
+unique=True: no permite valores repetidos en esa columna.
+verbose_name: nombre legible del campo en el admin.
+help_text: texto de ayuda que se muestra en formularios.
+validators=[...]: lista de reglas que debe cumplir el valor.
+null=True: permite NULL en la base de datos.
+blank=True: permite dejar el campo vacío en formularios.
+default: valor por defecto.
+max_digits y decimal_places: total de dígitos y cuántos son decimales en un DecimalField.
+OneToOneField: relación uno a uno.
+ManyToManyField: relación muchos a muchos.
+on_delete=models.CASCADE: si se borra el objeto relacionado, también se borra este.
+related_name: nombre para acceder a la relación en sentido inverso (recinto.festival).
+__str__: texto con el que se muestra cada objeto.
