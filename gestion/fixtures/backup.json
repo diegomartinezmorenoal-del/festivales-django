@@ -1,0 +1,1572 @@
+[
+{
+  "model": "gestion.recinto",
+  "pk": 1,
+  "fields": {
+    "nombre": "Parque del Alamillo",
+    "direccion": "Av. de los Descubrimientos, Sevilla",
+    "capacidad": 20000,
+    "latitud": 37.4237,
+    "longitud": -6.0021
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 2,
+  "fields": {
+    "nombre": "Estadio de la Cartuja",
+    "direccion": "Isla de la Cartuja, Sevilla",
+    "capacidad": 60000,
+    "latitud": 37.418,
+    "longitud": -6.008
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 3,
+  "fields": {
+    "nombre": "Recinto Castellón 509",
+    "direccion": "Acceso Jennifer Cantón 54, Cádiz, 37984",
+    "capacidad": 36891,
+    "latitud": 78.519701,
+    "longitud": 33.947397
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 4,
+  "fields": {
+    "nombre": "Recinto Sevilla 123",
+    "direccion": "Rambla Paca Cañas 76 Piso 4 , Álava, 47101",
+    "capacidad": 650,
+    "latitud": 36.1788065,
+    "longitud": -112.550205
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 5,
+  "fields": {
+    "nombre": "Recinto Asturias 570",
+    "direccion": "Pasaje Borja Mur 96 Puerta 5 , Las Palmas, 32039",
+    "capacidad": 6594,
+    "latitud": -57.391613,
+    "longitud": 9.621918
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 6,
+  "fields": {
+    "nombre": "Recinto Cuenca 839",
+    "direccion": "Cuesta Caridad Verdejo 2 Puerta 1 , Toledo, 20046",
+    "capacidad": 18142,
+    "latitud": 84.701035,
+    "longitud": -9.904283
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 7,
+  "fields": {
+    "nombre": "Recinto Castellón 155",
+    "direccion": "Paseo Hermenegildo Seco 25, Toledo, 50612",
+    "capacidad": 33806,
+    "latitud": 7.777757,
+    "longitud": -115.028661
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 8,
+  "fields": {
+    "nombre": "Recinto Málaga 014",
+    "direccion": "Paseo de Chucho Uribe 41, Lugo, 49768",
+    "capacidad": 15149,
+    "latitud": 23.824761,
+    "longitud": 114.849272
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 9,
+  "fields": {
+    "nombre": "Recinto Navarra 567",
+    "direccion": "Ronda de Ruy Llopis 93, Soria, 06634",
+    "capacidad": 2567,
+    "latitud": 23.481206,
+    "longitud": 10.585403
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 10,
+  "fields": {
+    "nombre": "Recinto Córdoba 132",
+    "direccion": "Ronda María Belén Cruz 63, Palencia, 18510",
+    "capacidad": 24270,
+    "latitud": 34.3124585,
+    "longitud": 145.168848
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 11,
+  "fields": {
+    "nombre": "Recinto Cádiz 716",
+    "direccion": "Cañada de Pío Heras 45 Apt. 73 , Vizcaya, 21284",
+    "capacidad": 50370,
+    "latitud": -60.0377655,
+    "longitud": -122.043931
+  }
+},
+{
+  "model": "gestion.recinto",
+  "pk": 12,
+  "fields": {
+    "nombre": "Recinto Ourense 601",
+    "direccion": "Alameda de María Pilar Rodriguez 97 Piso 2 , Segovia, 47916",
+    "capacidad": 2498,
+    "latitud": 68.7914115,
+    "longitud": -44.791038
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 1,
+  "fields": {
+    "nombre": "CervezaSur",
+    "cif": "A11111111",
+    "aportacion": "15000.00",
+    "sector": "Bebidas",
+    "web": "https://cervezasur.example.com"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 2,
+  "fields": {
+    "nombre": "TeleAndalucia",
+    "cif": "B22222222",
+    "aportacion": "8000.00",
+    "sector": "Telecomunicaciones",
+    "web": "https://teleandalucia.example.com"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 3,
+  "fields": {
+    "nombre": "Construcción Crespo S.A.T.",
+    "cif": "P87769582",
+    "aportacion": "1389.00",
+    "sector": "Chapista",
+    "web": "http://www.banco.com/"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 4,
+  "fields": {
+    "nombre": "Alimentación BUM S.Coop.",
+    "cif": "B07507993",
+    "aportacion": "11651.00",
+    "sector": "Meteorólogo",
+    "web": "https://consultoria.es/"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 5,
+  "fields": {
+    "nombre": "Comercializadora Mateos y asociados S.L.",
+    "cif": "P65179075",
+    "aportacion": "42395.00",
+    "sector": "Auxiliar laico de las religión",
+    "web": "http://www.abilio.es/"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 6,
+  "fields": {
+    "nombre": "Supermercados Castelló S.A.",
+    "cif": "J82653011",
+    "aportacion": "13253.00",
+    "sector": "Operador de instalaciones de tratamiento de agua",
+    "web": "https://www.inmobiliaria.com/"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 7,
+  "fields": {
+    "nombre": "Hermanos Criado S.Com.",
+    "cif": "P64194464",
+    "aportacion": "21530.00",
+    "sector": "Ingeniero químico",
+    "web": "https://www.supermercados.net/"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 8,
+  "fields": {
+    "nombre": "Coloma y Sans S.A.",
+    "cif": "D80874416",
+    "aportacion": "23404.00",
+    "sector": "Profesional de la salud y la higiene laboral y amb",
+    "web": "http://rios.org/"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 9,
+  "fields": {
+    "nombre": "Consultoría Martorell S.L.N.E",
+    "cif": "F93439971",
+    "aportacion": "46740.00",
+    "sector": "Ensamblador de equipos eléctricos",
+    "web": "http://grupo.es/"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 10,
+  "fields": {
+    "nombre": "Alimentación Roda y asociados S.Coop.",
+    "cif": "C88940531",
+    "aportacion": "15978.00",
+    "sector": "Ingeniero mecánico",
+    "web": "https://www.inversiones.com/"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 11,
+  "fields": {
+    "nombre": "Hnos Comas S.L.N.E",
+    "cif": "D00951932",
+    "aportacion": "47521.00",
+    "sector": "Mecánico y ajustador electricista",
+    "web": "https://alberola.com/"
+  }
+},
+{
+  "model": "gestion.patrocinador",
+  "pk": 12,
+  "fields": {
+    "nombre": "Monreal y Ferreras S.L.",
+    "cif": "F67773873",
+    "aportacion": "12229.00",
+    "sector": "Deshollinador",
+    "web": "https://www.hotel.es/"
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 1,
+  "fields": {
+    "nombre": "Festival Giralda Sound",
+    "descripcion": "Tres días de música en Sevilla",
+    "fecha_inicio": "2026-12-19",
+    "fecha_fin": "2026-12-21",
+    "aforo": 20000,
+    "activo": true,
+    "recinto": 1,
+    "patrocinadores": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 2,
+  "fields": {
+    "nombre": "Cartuja Electro Fest",
+    "descripcion": "Festival de música electrónica",
+    "fecha_inicio": "2027-01-18",
+    "fecha_fin": "2027-01-19",
+    "aforo": 50000,
+    "activo": true,
+    "recinto": 2,
+    "patrocinadores": [
+      1
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 3,
+  "fields": {
+    "nombre": "Festival General",
+    "descripcion": "Este hacen atención diferencia puedo pregunta familia. Media parece hacerlo después.",
+    "fecha_inicio": "2027-03-21",
+    "fecha_fin": "2027-03-24",
+    "aforo": 5801,
+    "activo": true,
+    "recinto": 3,
+    "patrocinadores": [
+      4,
+      7
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 4,
+  "fields": {
+    "nombre": "Festival Pacientes",
+    "descripcion": "Europea mano diciembre empresa primera también incluso demasiado. Espacio ellos como lugar luego.",
+    "fecha_inicio": "2026-12-20",
+    "fecha_fin": "2026-12-23",
+    "aforo": 539,
+    "activo": true,
+    "recinto": 4,
+    "patrocinadores": [
+      5
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 5,
+  "fields": {
+    "nombre": "Festival Ocho",
+    "descripcion": "Modo valor ministro dónde amor. Niveles pocos campo. Yo dólares pasado unidad futuro.",
+    "fecha_inicio": "2027-01-31",
+    "fecha_fin": "2027-02-03",
+    "aforo": 4402,
+    "activo": false,
+    "recinto": 5,
+    "patrocinadores": [
+      10
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 6,
+  "fields": {
+    "nombre": "Festival Primero",
+    "descripcion": "Éste organización llama hoy oposición hora. Ellas aquellos período no han. Comisión primeros solamente menos.",
+    "fecha_inicio": "2027-03-01",
+    "fecha_fin": "2027-03-04",
+    "aforo": 16070,
+    "activo": true,
+    "recinto": 6,
+    "patrocinadores": [
+      3,
+      4,
+      10
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 7,
+  "fields": {
+    "nombre": "Festival Personal",
+    "descripcion": "Conocer calle ocasión sociedad mercado plaza. Que últimos militares sino figura final.",
+    "fecha_inicio": "2027-03-29",
+    "fecha_fin": "2027-04-01",
+    "aforo": 711,
+    "activo": false,
+    "recinto": 7,
+    "patrocinadores": [
+      9
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 8,
+  "fields": {
+    "nombre": "Festival Tema",
+    "descripcion": "Millones hermano madre realizar. Pie minutos intereses objeto sabía investigación junio niveles. Dice elecciones peor mujeres humano.",
+    "fecha_inicio": "2027-01-27",
+    "fecha_fin": "2027-01-30",
+    "aforo": 10670,
+    "activo": false,
+    "recinto": 8,
+    "patrocinadores": [
+      5,
+      8
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 9,
+  "fields": {
+    "nombre": "Festival Estamos",
+    "descripcion": "Carácter principio trabajar p. Comunidad zonas comisión banco. Nada pablo mil curso todas acuerdo.",
+    "fecha_inicio": "2027-04-02",
+    "fecha_fin": "2027-04-04",
+    "aforo": 2204,
+    "activo": false,
+    "recinto": 9,
+    "patrocinadores": [
+      5
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 10,
+  "fields": {
+    "nombre": "Festival Casa",
+    "descripcion": "Donde presente familia curso según arriba. Pasa voz policía dos época debido quienes. Diario ver estar policía frente.",
+    "fecha_inicio": "2027-02-19",
+    "fecha_fin": "2027-02-22",
+    "aforo": 14732,
+    "activo": true,
+    "recinto": 10,
+    "patrocinadores": [
+      7,
+      8
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 11,
+  "fields": {
+    "nombre": "Festival Acción",
+    "descripcion": "Española junio según tal poner arriba. Estas nuestra pablo jefe ver mismo sobre vía. Tribunal lópez debía principio ante hace.",
+    "fecha_inicio": "2027-01-31",
+    "fecha_fin": "2027-02-02",
+    "aforo": 45551,
+    "activo": false,
+    "recinto": 11,
+    "patrocinadores": [
+      3,
+      7
+    ]
+  }
+},
+{
+  "model": "gestion.festival",
+  "pk": 12,
+  "fields": {
+    "nombre": "Festival Ejemplo",
+    "descripcion": "Valor he pasa juego plan. Hoy problema queda carácter voz todo. Ese cerca líder.",
+    "fecha_inicio": "2027-01-11",
+    "fecha_fin": "2027-01-13",
+    "aforo": 755,
+    "activo": false,
+    "recinto": 12,
+    "patrocinadores": [
+      3,
+      5,
+      7
+    ]
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 1,
+  "fields": {
+    "nombre_artistico": "Los Guadalquivires",
+    "genero": "rock",
+    "biografia": "",
+    "email": "guadalquivires@example.com",
+    "popularidad": 80,
+    "fecha_formacion": "2010-05-20"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 2,
+  "fields": {
+    "nombre_artistico": "DJ Triana",
+    "genero": "electronica",
+    "biografia": "",
+    "email": "djtriana@example.com",
+    "popularidad": 90,
+    "fecha_formacion": "2015-03-10"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 3,
+  "fields": {
+    "nombre_artistico": "Carmen Albero",
+    "genero": "flamenco",
+    "biografia": "",
+    "email": "carmen@example.com",
+    "popularidad": 70,
+    "fecha_formacion": "2008-09-01"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 4,
+  "fields": {
+    "nombre_artistico": "Puerto Viñas 32",
+    "genero": "flamenco",
+    "biografia": "Considera vez conseguir ex ningún nadie. Movimiento cerca martín campo práctica razón familia. Él juez van sector ahí.",
+    "email": "lilia57@example.com",
+    "popularidad": 78,
+    "fecha_formacion": "2011-04-19"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 5,
+  "fields": {
+    "nombre_artistico": "Medios Luís 11",
+    "genero": "hiphop",
+    "biografia": "Todas encontrar económico nuestra menor práctica. Solamente esfuerzo las mundial. Lejos quiere ciudad noche. Plaza tratamiento la dios deja.",
+    "email": "jordi62@example.com",
+    "popularidad": 42,
+    "fecha_formacion": "2010-08-10"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 6,
+  "fields": {
+    "nombre_artistico": "Podría Saez 75",
+    "genero": "hiphop",
+    "biografia": "Televisión joven o productos he salir. Habría líder nueva francia importantes. Estamos control llegar baja.",
+    "email": "iris02@example.net",
+    "popularidad": 5,
+    "fecha_formacion": "2013-01-13"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 7,
+  "fields": {
+    "nombre_artistico": "Partes Palau 54",
+    "genero": "electronica",
+    "biografia": "Ve sólo mitad teatro nada. Mantener afirmó seguir son. Parecía uno uno equipo respuesta algún texto. Primer educación lenguaje todas número.",
+    "email": "aurelia56@example.net",
+    "popularidad": 6,
+    "fecha_formacion": "2001-01-17"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 8,
+  "fields": {
+    "nombre_artistico": "Centro Becerra 40",
+    "genero": "rock",
+    "biografia": "Problemas esto días. Internacional días suerte jefe socialista acto. Has cultural ayuda tales van ni consumo.",
+    "email": "alejandra79@example.org",
+    "popularidad": 34,
+    "fecha_formacion": "2012-06-23"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 9,
+  "fields": {
+    "nombre_artistico": "Modelo Carpio 05",
+    "genero": "hiphop",
+    "biografia": "Cambio alto hubiera encontrar los europea sentido reunión.",
+    "email": "graciano34@example.net",
+    "popularidad": 87,
+    "fecha_formacion": "2012-02-20"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 10,
+  "fields": {
+    "nombre_artistico": "Vuelve Reyes 03",
+    "genero": "pop",
+    "biografia": "Etapa hacer jóvenes. Éxito pesar interior mujeres puedo. Modelo pesar pueda toda aumento.",
+    "email": "melania35@example.org",
+    "popularidad": 41,
+    "fecha_formacion": "2014-11-13"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 11,
+  "fields": {
+    "nombre_artistico": "Rey Guijarro 89",
+    "genero": "flamenco",
+    "biografia": "Ellos cuenta tampoco arriba. Mirada aun económico los sean derecha. Mi negro hubiera política expresión mismo ocasiones.",
+    "email": "lopezpalmira@example.org",
+    "popularidad": 26,
+    "fecha_formacion": "2013-10-12"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 12,
+  "fields": {
+    "nombre_artistico": "Dejó Meléndez 70",
+    "genero": "hiphop",
+    "biografia": "Ayer bueno comercio línea. Decía aun segunda poder juan capacidad igual. Resultado cuadro construcción decisión número también.",
+    "email": "juan-carlosbautista@example.org",
+    "popularidad": 43,
+    "fecha_formacion": "1999-04-21"
+  }
+},
+{
+  "model": "gestion.artista",
+  "pk": 13,
+  "fields": {
+    "nombre_artistico": "Pablo Trujillo 28",
+    "genero": "hiphop",
+    "biografia": "Eran expresión armas políticas francia nuestros plazo. Carta quiere quiero ha. Diferentes algunos hace decisión ahí modelo cinco.",
+    "email": "lelias@example.org",
+    "popularidad": 44,
+    "fecha_formacion": "2001-08-01"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 1,
+  "fields": {
+    "artista": 1,
+    "web": "https://guadalquivires.example.com",
+    "instagram": "@guadalquivires",
+    "cache": "5000.00",
+    "contrato_exclusivo": false,
+    "fecha_alta": "2026-10-20T08:58:04.697Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 2,
+  "fields": {
+    "artista": 2,
+    "web": "https://djtriana.example.com",
+    "instagram": "@djtriana",
+    "cache": "8000.00",
+    "contrato_exclusivo": true,
+    "fecha_alta": "2026-10-20T08:58:04.700Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 3,
+  "fields": {
+    "artista": 3,
+    "web": "",
+    "instagram": "@carmenalbero",
+    "cache": "3500.00",
+    "contrato_exclusivo": false,
+    "fecha_alta": "2026-10-20T08:58:04.702Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 4,
+  "fields": {
+    "artista": 4,
+    "web": "https://fabrica.es/",
+    "instagram": "@nagusti",
+    "cache": "18777.00",
+    "contrato_exclusivo": true,
+    "fecha_alta": "2026-10-20T11:41:53.361Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 5,
+  "fields": {
+    "artista": 5,
+    "web": "https://www.supermercados.org/",
+    "instagram": "@socorroporcel",
+    "cache": "13677.00",
+    "contrato_exclusivo": true,
+    "fecha_alta": "2026-10-20T11:41:53.365Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 6,
+  "fields": {
+    "artista": 6,
+    "web": "http://www.supermercados.com/",
+    "instagram": "@trinidad61",
+    "cache": "18593.00",
+    "contrato_exclusivo": false,
+    "fecha_alta": "2026-10-20T11:41:53.368Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 7,
+  "fields": {
+    "artista": 7,
+    "web": "https://www.imelda.es/",
+    "instagram": "@ocrespi",
+    "cache": "5834.00",
+    "contrato_exclusivo": false,
+    "fecha_alta": "2026-10-20T11:41:53.372Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 8,
+  "fields": {
+    "artista": 8,
+    "web": "https://www.farmaceutica.es/",
+    "instagram": "@alberdinadia",
+    "cache": "10216.00",
+    "contrato_exclusivo": true,
+    "fecha_alta": "2026-10-20T11:41:53.376Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 9,
+  "fields": {
+    "artista": 9,
+    "web": "http://hnos.net/",
+    "instagram": "@aleduarte",
+    "cache": "7295.00",
+    "contrato_exclusivo": true,
+    "fecha_alta": "2026-10-20T11:41:53.379Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 10,
+  "fields": {
+    "artista": 10,
+    "web": "https://distribuciones.com/",
+    "instagram": "@rayamiguel-angel",
+    "cache": "12568.00",
+    "contrato_exclusivo": false,
+    "fecha_alta": "2026-10-20T11:41:53.383Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 11,
+  "fields": {
+    "artista": 11,
+    "web": "http://www.familia.com/",
+    "instagram": "@hbenavides",
+    "cache": "7242.00",
+    "contrato_exclusivo": true,
+    "fecha_alta": "2026-10-20T11:41:53.387Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 12,
+  "fields": {
+    "artista": 12,
+    "web": "https://desarrollo.com/",
+    "instagram": "@elisabetguerra",
+    "cache": "8121.00",
+    "contrato_exclusivo": false,
+    "fecha_alta": "2026-10-20T11:41:53.391Z"
+  }
+},
+{
+  "model": "gestion.perfilartista",
+  "pk": 13,
+  "fields": {
+    "artista": 13,
+    "web": "https://www.farmaceutica.es/",
+    "instagram": "@tplaza",
+    "cache": "1820.00",
+    "contrato_exclusivo": false,
+    "fecha_alta": "2026-10-20T11:41:53.394Z"
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 1,
+  "fields": {
+    "nombre": "Escenario Giralda",
+    "tipo": "principal",
+    "capacidad": 15000,
+    "techado": false,
+    "festival": 1
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 2,
+  "fields": {
+    "nombre": "Carpa Triana",
+    "tipo": "carpa",
+    "capacidad": 3000,
+    "techado": true,
+    "festival": 1
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 3,
+  "fields": {
+    "nombre": "Main Stage Cartuja",
+    "tipo": "principal",
+    "capacidad": 40000,
+    "techado": false,
+    "festival": 2
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 4,
+  "fields": {
+    "nombre": "Escenario Algunos",
+    "tipo": "carpa",
+    "capacidad": 16588,
+    "techado": false,
+    "festival": 3
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 5,
+  "fields": {
+    "nombre": "Escenario Primeros",
+    "tipo": "principal",
+    "capacidad": 12153,
+    "techado": true,
+    "festival": 3
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 6,
+  "fields": {
+    "nombre": "Escenario Reforma",
+    "tipo": "secundario",
+    "capacidad": 17325,
+    "techado": true,
+    "festival": 6
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 7,
+  "fields": {
+    "nombre": "Escenario Marcha",
+    "tipo": "principal",
+    "capacidad": 11660,
+    "techado": false,
+    "festival": 8
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 8,
+  "fields": {
+    "nombre": "Escenario Pasa",
+    "tipo": "principal",
+    "capacidad": 18714,
+    "techado": true,
+    "festival": 7
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 9,
+  "fields": {
+    "nombre": "Escenario Gracias",
+    "tipo": "carpa",
+    "capacidad": 8335,
+    "techado": false,
+    "festival": 6
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 10,
+  "fields": {
+    "nombre": "Escenario Ciento",
+    "tipo": "secundario",
+    "capacidad": 14292,
+    "techado": false,
+    "festival": 4
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 11,
+  "fields": {
+    "nombre": "Escenario Formación",
+    "tipo": "principal",
+    "capacidad": 13640,
+    "techado": true,
+    "festival": 3
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 12,
+  "fields": {
+    "nombre": "Escenario Mar",
+    "tipo": "principal",
+    "capacidad": 13687,
+    "techado": true,
+    "festival": 7
+  }
+},
+{
+  "model": "gestion.escenario",
+  "pk": 13,
+  "fields": {
+    "nombre": "Escenario Nuevos",
+    "tipo": "principal",
+    "capacidad": 17263,
+    "techado": false,
+    "festival": 4
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 1,
+  "fields": {
+    "artista": 1,
+    "festival": 1,
+    "escenario": 1,
+    "fecha_hora": "2026-12-19T12:58:04.711Z",
+    "duracion": "01:30:00",
+    "cache_pactado": "5000.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 2,
+  "fields": {
+    "artista": 3,
+    "festival": 1,
+    "escenario": 2,
+    "fecha_hora": "2026-12-20T10:58:04.711Z",
+    "duracion": "01:00:00",
+    "cache_pactado": "3500.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 3,
+  "fields": {
+    "artista": 2,
+    "festival": 2,
+    "escenario": 3,
+    "fecha_hora": "2027-01-18T14:58:04.711Z",
+    "duracion": "02:00:00",
+    "cache_pactado": "8000.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 4,
+  "fields": {
+    "artista": 12,
+    "festival": 7,
+    "escenario": 8,
+    "fecha_hora": "2026-12-05T01:35:36.438Z",
+    "duracion": "01:00:00",
+    "cache_pactado": "5865.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 5,
+  "fields": {
+    "artista": 9,
+    "festival": 8,
+    "escenario": 7,
+    "fecha_hora": "2027-02-13T11:03:29.886Z",
+    "duracion": "01:30:00",
+    "cache_pactado": "5952.00",
+    "cancelada": true
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 6,
+  "fields": {
+    "artista": 11,
+    "festival": 4,
+    "escenario": 10,
+    "fecha_hora": "2027-03-09T15:52:11.997Z",
+    "duracion": "01:30:00",
+    "cache_pactado": "18243.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 7,
+  "fields": {
+    "artista": 6,
+    "festival": 3,
+    "escenario": 11,
+    "fecha_hora": "2027-02-05T03:59:13.086Z",
+    "duracion": "01:00:00",
+    "cache_pactado": "12607.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 8,
+  "fields": {
+    "artista": 9,
+    "festival": 3,
+    "escenario": 11,
+    "fecha_hora": "2027-02-15T15:56:23.599Z",
+    "duracion": "02:00:00",
+    "cache_pactado": "16701.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 9,
+  "fields": {
+    "artista": 11,
+    "festival": 3,
+    "escenario": 5,
+    "fecha_hora": "2027-01-16T12:22:22.517Z",
+    "duracion": "01:30:00",
+    "cache_pactado": "11051.00",
+    "cancelada": true
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 10,
+  "fields": {
+    "artista": 4,
+    "festival": 4,
+    "escenario": 10,
+    "fecha_hora": "2026-12-24T13:42:49.403Z",
+    "duracion": "02:00:00",
+    "cache_pactado": "9058.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 11,
+  "fields": {
+    "artista": 4,
+    "festival": 4,
+    "escenario": 10,
+    "fecha_hora": "2027-01-02T04:08:29.396Z",
+    "duracion": "01:00:00",
+    "cache_pactado": "14334.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 12,
+  "fields": {
+    "artista": 12,
+    "festival": 3,
+    "escenario": 4,
+    "fecha_hora": "2027-01-14T02:43:52.286Z",
+    "duracion": "01:00:00",
+    "cache_pactado": "10597.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.actuacion",
+  "pk": 13,
+  "fields": {
+    "artista": 13,
+    "festival": 6,
+    "escenario": 6,
+    "fecha_hora": "2026-11-07T18:57:54.912Z",
+    "duracion": "01:00:00",
+    "cache_pactado": "1200.00",
+    "cancelada": false
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 1,
+  "fields": {
+    "nombre": "Lucía",
+    "apellidos": "Pérez Gómez",
+    "email": "lucia@example.com",
+    "fecha_nacimiento": "1998-04-12",
+    "telefono": "600111222",
+    "artistas_favoritos": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 2,
+  "fields": {
+    "nombre": "Pablo",
+    "apellidos": "Ruiz Soto",
+    "email": "pablo@example.com",
+    "fecha_nacimiento": "1995-11-03",
+    "telefono": "",
+    "artistas_favoritos": [
+      3
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 3,
+  "fields": {
+    "nombre": "Guadalupe",
+    "apellidos": "Estévez Barrera",
+    "email": "tejedormaxi@example.com",
+    "fecha_nacimiento": "1966-11-08",
+    "telefono": "694153108",
+    "artistas_favoritos": [
+      4,
+      13
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 4,
+  "fields": {
+    "nombre": "Simón",
+    "apellidos": "Arranz Coloma",
+    "email": "nicanor29@example.org",
+    "fecha_nacimiento": "2002-04-02",
+    "telefono": "611723756",
+    "artistas_favoritos": [
+      6,
+      11,
+      13
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 5,
+  "fields": {
+    "nombre": "Cornelio",
+    "apellidos": "Iriarte Perera",
+    "email": "contrerasadora@example.com",
+    "fecha_nacimiento": "1969-08-07",
+    "telefono": "691947159",
+    "artistas_favoritos": [
+      9
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 6,
+  "fields": {
+    "nombre": "Agustina",
+    "apellidos": "Acuña Verdugo",
+    "email": "jcoloma@example.org",
+    "fecha_nacimiento": "1956-03-23",
+    "telefono": "610777021",
+    "artistas_favoritos": [
+      4,
+      12
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 7,
+  "fields": {
+    "nombre": "Valentina",
+    "apellidos": "Blanes Elorza",
+    "email": "amayasancho@example.com",
+    "fecha_nacimiento": "1958-12-26",
+    "telefono": "643821753",
+    "artistas_favoritos": [
+      5,
+      10
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 8,
+  "fields": {
+    "nombre": "Consuelo",
+    "apellidos": "Agullo Ojeda",
+    "email": "araceli80@example.net",
+    "fecha_nacimiento": "1979-04-25",
+    "telefono": "685479771",
+    "artistas_favoritos": [
+      5
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 9,
+  "fields": {
+    "nombre": "Cristian",
+    "apellidos": "Saavedra Larrañaga",
+    "email": "marquesursula@example.org",
+    "fecha_nacimiento": "1989-02-09",
+    "telefono": "692224543",
+    "artistas_favoritos": [
+      7,
+      8,
+      13
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 10,
+  "fields": {
+    "nombre": "Herberto",
+    "apellidos": "Almeida Mariscal",
+    "email": "isidora01@example.net",
+    "fecha_nacimiento": "1974-06-25",
+    "telefono": "617991234",
+    "artistas_favoritos": [
+      8
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 11,
+  "fields": {
+    "nombre": "Julieta",
+    "apellidos": "Losada Boada",
+    "email": "martimaria-jose@example.org",
+    "fecha_nacimiento": "1988-02-18",
+    "telefono": "645523534",
+    "artistas_favoritos": [
+      7,
+      8,
+      12
+    ]
+  }
+},
+{
+  "model": "gestion.asistente",
+  "pk": 12,
+  "fields": {
+    "nombre": "Ani",
+    "apellidos": "Ugarte Navarro",
+    "email": "blazquezximena@example.com",
+    "fecha_nacimiento": "1975-06-20",
+    "telefono": "631468735",
+    "artistas_favoritos": [
+      6,
+      8,
+      10
+    ]
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 1,
+  "fields": {
+    "asistente": 1,
+    "codigo": "10afc276-7acd-49be-8494-a5eb4f001be7",
+    "fecha_emision": "2026-10-20T08:58:04.729Z",
+    "puntos": 120,
+    "activo": true
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 2,
+  "fields": {
+    "asistente": 2,
+    "codigo": "12eaaa6a-372d-47ac-97aa-94f5f50dfb8a",
+    "fecha_emision": "2026-10-20T08:58:04.732Z",
+    "puntos": 30,
+    "activo": true
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 3,
+  "fields": {
+    "asistente": 3,
+    "codigo": "3d728938-4fad-4b72-b806-c1ed6dc9772f",
+    "fecha_emision": "2026-10-20T11:41:53.441Z",
+    "puntos": 382,
+    "activo": true
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 4,
+  "fields": {
+    "asistente": 4,
+    "codigo": "9f492ead-f9fd-410c-8ffe-1c7bd518520d",
+    "fecha_emision": "2026-10-20T11:41:53.447Z",
+    "puntos": 265,
+    "activo": false
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 5,
+  "fields": {
+    "asistente": 5,
+    "codigo": "4a2231ad-15f8-4f5c-8ddd-c6507706504e",
+    "fecha_emision": "2026-10-20T11:41:53.452Z",
+    "puntos": 293,
+    "activo": true
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 6,
+  "fields": {
+    "asistente": 6,
+    "codigo": "2e5f251f-3aef-4904-acd6-78da5879cc7a",
+    "fecha_emision": "2026-10-20T11:41:53.458Z",
+    "puntos": 198,
+    "activo": false
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 7,
+  "fields": {
+    "asistente": 7,
+    "codigo": "946f834a-9dfa-478c-a04c-db0699db2612",
+    "fecha_emision": "2026-10-20T11:41:53.463Z",
+    "puntos": 302,
+    "activo": true
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 8,
+  "fields": {
+    "asistente": 8,
+    "codigo": "7aa675a9-7778-4bfc-8ef0-5fd03523d2b0",
+    "fecha_emision": "2026-10-20T11:41:53.469Z",
+    "puntos": 11,
+    "activo": true
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 9,
+  "fields": {
+    "asistente": 9,
+    "codigo": "5a889e25-a2c3-4979-8ed3-aa514cb4d0de",
+    "fecha_emision": "2026-10-20T11:41:53.475Z",
+    "puntos": 55,
+    "activo": true
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 10,
+  "fields": {
+    "asistente": 10,
+    "codigo": "85366aad-9978-47a5-a68c-046cae43dc77",
+    "fecha_emision": "2026-10-20T11:41:53.482Z",
+    "puntos": 274,
+    "activo": false
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 11,
+  "fields": {
+    "asistente": 11,
+    "codigo": "caeb8241-5915-42be-b4c7-fe81e7e26846",
+    "fecha_emision": "2026-10-20T11:41:53.492Z",
+    "puntos": 490,
+    "activo": false
+  }
+},
+{
+  "model": "gestion.carnetasistente",
+  "pk": 12,
+  "fields": {
+    "asistente": 12,
+    "codigo": "cbdf98d2-7ae0-4abb-b2d9-f1807774d8f7",
+    "fecha_emision": "2026-10-20T11:41:53.498Z",
+    "puntos": 112,
+    "activo": true
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 1,
+  "fields": {
+    "tipo": "vip",
+    "precio": "150.00",
+    "codigo": "ENT-0001",
+    "fecha_compra": "2026-10-20T08:58:04.734Z",
+    "usada": false,
+    "asistente": 1,
+    "festival": 1
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 2,
+  "fields": {
+    "tipo": "general",
+    "precio": "60.00",
+    "codigo": "ENT-0002",
+    "fecha_compra": "2026-10-20T08:58:04.737Z",
+    "usada": false,
+    "asistente": 2,
+    "festival": 1
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 3,
+  "fields": {
+    "tipo": "abono",
+    "precio": "90.00",
+    "codigo": "ENT-0003",
+    "fecha_compra": "2026-10-20T08:58:04.739Z",
+    "usada": false,
+    "asistente": 1,
+    "festival": 2
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 4,
+  "fields": {
+    "tipo": "general",
+    "precio": "121.00",
+    "codigo": "ENT-04736607",
+    "fecha_compra": "2026-10-20T11:41:53.499Z",
+    "usada": false,
+    "asistente": 9,
+    "festival": 5
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 5,
+  "fields": {
+    "tipo": "general",
+    "precio": "31.00",
+    "codigo": "ENT-04132047",
+    "fecha_compra": "2026-10-20T11:41:53.502Z",
+    "usada": false,
+    "asistente": 5,
+    "festival": 8
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 6,
+  "fields": {
+    "tipo": "general",
+    "precio": "51.00",
+    "codigo": "ENT-31172489",
+    "fecha_compra": "2026-10-20T11:41:53.504Z",
+    "usada": true,
+    "asistente": 4,
+    "festival": 12
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 7,
+  "fields": {
+    "tipo": "abono",
+    "precio": "100.00",
+    "codigo": "ENT-64632603",
+    "fecha_compra": "2026-10-20T11:41:53.506Z",
+    "usada": true,
+    "asistente": 8,
+    "festival": 12
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 8,
+  "fields": {
+    "tipo": "abono",
+    "precio": "192.00",
+    "codigo": "ENT-97993774",
+    "fecha_compra": "2026-10-20T11:41:53.507Z",
+    "usada": true,
+    "asistente": 6,
+    "festival": 8
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 9,
+  "fields": {
+    "tipo": "general",
+    "precio": "97.00",
+    "codigo": "ENT-57366747",
+    "fecha_compra": "2026-10-20T11:41:53.509Z",
+    "usada": true,
+    "asistente": 12,
+    "festival": 12
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 10,
+  "fields": {
+    "tipo": "vip",
+    "precio": "57.00",
+    "codigo": "ENT-16229810",
+    "fecha_compra": "2026-10-20T11:41:53.511Z",
+    "usada": false,
+    "asistente": 4,
+    "festival": 7
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 11,
+  "fields": {
+    "tipo": "abono",
+    "precio": "196.00",
+    "codigo": "ENT-98369595",
+    "fecha_compra": "2026-10-20T11:41:53.513Z",
+    "usada": false,
+    "asistente": 12,
+    "festival": 7
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 12,
+  "fields": {
+    "tipo": "abono",
+    "precio": "135.00",
+    "codigo": "ENT-90680458",
+    "fecha_compra": "2026-10-20T11:41:53.515Z",
+    "usada": false,
+    "asistente": 12,
+    "festival": 8
+  }
+},
+{
+  "model": "gestion.entrada",
+  "pk": 13,
+  "fields": {
+    "tipo": "general",
+    "precio": "104.00",
+    "codigo": "ENT-49458444",
+    "fecha_compra": "2026-10-20T11:41:53.516Z",
+    "usada": false,
+    "asistente": 11,
+    "festival": 11
+  }
+}
+]
