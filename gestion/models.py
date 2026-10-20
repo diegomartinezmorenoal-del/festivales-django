@@ -135,6 +135,63 @@ class Actuacion(models.Model):
         verbose_name_plural = "Actuaciones"
 
     def __str__(self):
-        return f"{self.artista} en {self.festival}"    
+        return f"{self.artista} en {self.festival}"
+
+class Asistente(models.Model):
+    nombre = models.CharField(max_length=50)
+    apellidos = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    fecha_nacimiento = models.DateField()
+    telefono = models.CharField(max_length=15, blank=True)
+
+    artistas_favoritos = models.ManyToManyField(
+        Artista,
+        related_name="seguidores",
+        blank=True,
+    )
+
+    def __str__(self):
+        return f"{self.nombre} {self.apellidos}"
+    
+class CarnetAsistente(models.Model):
+    asistente = models.OneToOneField(
+        Asistente,
+        on_delete=models.CASCADE,
+        related_name="carnet",
+    )
+    codigo = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    fecha_emision = models.DateTimeField(auto_now_add=True)
+    puntos = models.PositiveIntegerField(default=0)
+    activo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Carnet de {self.asistente}"
+ 
+class Entrada(models.Model):
+    TIPOS = [
+        ("general", "General"),
+        ("vip", "VIP"),
+        ("abono", "Abono"),
+    ]
+
+    tipo = models.CharField(max_length=20, choices=TIPOS, default="general")
+    precio = models.DecimalField(max_digits=8, decimal_places=2)
+    codigo = models.CharField(max_length=20, unique=True)
+    fecha_compra = models.DateTimeField(auto_now_add=True)
+    usada = models.BooleanField(default=False)
+
+    asistente = models.ForeignKey(
+        Asistente,
+        on_delete=models.CASCADE,
+        related_name="entradas",
+    )
+    festival = models.ForeignKey(
+        Festival,
+        on_delete=models.CASCADE,
+        related_name="entradas",
+    )
+
+    def __str__(self):
+        return f"Entrada {self.codigo} ({self.tipo})"                
     
     
