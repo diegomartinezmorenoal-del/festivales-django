@@ -275,7 +275,7 @@ Estos datos no pertenecen ni al artista ni al festival por separado, sino a la c
 
 ## 6. Tipos de campo usados
 
-Se usan **12 tipos distintos** (el mínimo era 10), sin contar los campos de relación.
+Se usan **12 tipos distintos** , sin contar los campos de relación.
 
 | Tipo | Qué guarda | Usado en |
 |---|---|---|
