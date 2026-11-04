@@ -1,0 +1,62 @@
+{% extends 'gestion/base.html' %}
+
+{% block titulo %}Artistas de {{ genero }}{% endblock %}
+
+{% block contenido %}
+<h1>Artistas de {{ genero }}</h1>
+<p>Artistas con popularidad de 40 o más, de más a menos populares.</p>
+
+{% for artista in artistas %}
+<div class="tarjeta">
+    <h2>{{ artista.nombre_artistico }}</h2>
+    <p>
+        <strong>Popularidad:</strong> {{ artista.popularidad }}<br>
+        <strong>Email:</strong> {{ artista.email }}<br>
+        <strong>Formación:</strong> {{ artista.fecha_formacion|date:"d/m/Y" }}<br>
+        {{ artista.biografia }}
+    </p>
+
+    <h3>Perfil</h3>
+    <p>
+        Web: {{ artista.perfil.web }}<br>
+        Instagram: {{ artista.perfil.instagram }}<br>
+        Caché: {{ artista.perfil.cache }} €<br>
+        Contrato exclusivo: {% if artista.perfil.contrato_exclusivo %}Sí{% else %}No{% endif %}<br>
+        Alta: {{ artista.perfil.fecha_alta|date:"d/m/Y" }}
+    </p>
+
+    <h3>Actuaciones</h3>
+    <table>
+        <tr>
+            <th>Festival</th><th>Escenario</th><th>Fecha y hora</th>
+            <th>Duración</th><th>Caché pactado</th><th>Cancelada</th>
+        </tr>
+        {% for actuacion in artista.actuacion_set.all %}
+        <tr>
+            <td><a href="{% url 'detalle_festival' actuacion.festival.id %}">{{ actuacion.festival.nombre }}</a></td>
+            <td>{% if actuacion.escenario %}{{ actuacion.escenario.nombre }}{% else %}Sin asignar{% endif %}</td>
+            <td>{{ actuacion.fecha_hora|date:"d/m/Y H:i" }}</td>
+            <td>{{ actuacion.duracion }}</td>
+            <td>{{ actuacion.cache_pactado }} €</td>
+            <td>{% if actuacion.cancelada %}Sí{% else %}No{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Sin actuaciones</td></tr>
+        {% endfor %}
+    </table>
+
+    <h3>Asistentes que lo tienen como favorito</h3>
+    <ul>
+        {% for asistente in artista.seguidores.all %}
+        <li>{{ asistente.nombre }} {{ asistente.apellidos }} ({{ asistente.email }})</li>
+        {% empty %}
+        <li>Nadie todavía</li>
+        {% endfor %}
+    </ul>
+</div>
+{% empty %}
+<p>No hay artistas de este género con popularidad suficiente.</p>
+{% endfor %}
+
+<p><a href="{% url 'index' %}">Volver al inicio</a></p>
+{% endblock %}

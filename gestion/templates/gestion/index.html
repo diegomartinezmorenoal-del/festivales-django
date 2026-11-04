@@ -10,6 +10,9 @@
       <li><a href="{% url 'index' %}">Inicio</a></li>
 <li><a href="{% url 'lista_festivales' %}">Lista de festivales</a></li>
 <li><a href="{% url 'detalle_festival' 1 %}">Detalle del festival 1</a></li>
+<li><a href="{% url 'artistas_por_genero' 'rock' %}">Artistas de rock</a></li>
+<li><a href="{% url 'artistas_por_genero' 'electronica' %}">Artistas de electrónica</a></li>
+<li><a href="{% url 'artistas_por_genero' 'flamenco' %}">Artistas de flamenco</a></li>
     </ul>
 </div>
 {% endblock %}

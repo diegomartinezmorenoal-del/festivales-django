@@ -1,5 +1,7 @@
+from django.http import Http404
+from django.db.models import Prefetch
 from django.shortcuts import render, get_object_or_404
-from .models import Festival, Actuacion, Entrada
+from .models import Festival, Actuacion, Entrada, Artista
 
 def index(request):
     # Vista principal
@@ -69,3 +71,45 @@ def detalle_festival(request, id):
         'entradas': entradas,
     }
     return render(request, 'gestion/detalle_festival.html', contexto)
+
+def artistas_por_genero(request, genero):
+    # Lista los artistas de un género musical (parámetro str de la URL) cuya
+    # popularidad sea al menos 40 (filtro con AND), ordenados de más a menos
+    # populares. Muestra su perfil (OneToOne), sus actuaciones con festival y
+    # escenario (ManyToMany con tabla intermedia Actuacion) y los asistentes
+    # que lo tienen como favorito (ManyToMany reversa). Si el género no
+    # existe, devuelve un error 404.
+    #
+
+    #   -- 1) Artistas del género con popularidad >= 40 y su perfil
+
+    #
+    #   -- 2) Actuaciones de esos artistas con su festival y su escenario
+    #
+    #
+    #   -- 3) Asistentes que tienen a esos artistas como favoritos
+
+    generos_validos = dict(Artista.GENEROS)
+    if genero not in generos_validos:
+        raise Http404("Género no válido")
+
+    artistas = (
+        Artista.objects
+        .select_related('perfil')
+        .prefetch_related(
+            Prefetch(
+                'actuacion_set',
+                queryset=Actuacion.objects
+                .select_related('festival', 'escenario')
+                .order_by('fecha_hora'),
+            ),
+            'seguidores',
+        )
+        .filter(genero=genero, popularidad__gte=40)
+        .order_by('-popularidad')
+    )
+    contexto = {
+        'artistas': artistas,
+        'genero': generos_validos[genero],
+    }
+    return render(request, 'gestion/artistas_por_genero.html', contexto)
