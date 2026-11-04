@@ -455,7 +455,7 @@ python3 manage.py loaddata gestion/fixtures/backup.json
 | 2 | `/festivales/` | `lista_festivales` | `lista_festivales.html` |
 | 3 | `/festival/<int:id>/` | `detalle_festival` | `detalle_festival.html` |
 | 4 | `/artistas/<str:genero>/` | `artistas_por_genero` | `artistas_por_genero.html` |
-
+| 5 | `/festival/<int:id>/entradas/<str:tipo>/` | `entradas_festival` | `entradas_festival.html` |
 ### URL 2: `/festivales/` (`lista_festivales`)
 
 Lista todos los festivales ordenados por fecha de inicio con todos sus datos relacionados.
@@ -494,5 +494,20 @@ Requisitos que cumple:
 - **ManyToMany reversa**: asistentes que lo tienen como favorito (`prefetch_related('seguidores')`).
 - **`order_by`**: `-popularidad`.
 - **Error 404** si el género no existe.
+- **Optimización**: 3 consultas SQL fijas.
+- SQL equivalente comentado en la vista.
+
+### URL 5: `/festival/<int:id>/entradas/<str:tipo>/` (`entradas_festival`)
+
+Lista las entradas de un tipo (general, vip o abono) vendidas para un festival, de más a menos caras.
+
+Requisitos que cumple:
+- **Dos parámetros**: `<int:id>` (entero) y `<str:tipo>` (texto).
+- **Filtro con AND**: `filter(festival=festival, tipo=tipo)`.
+- **ManyToOne**: entrada con su asistente (`select_related('asistente')`).
+- **OneToOne reversa**: carnet del asistente (`select_related('asistente__carnet')`).
+- **ManyToMany**: artistas favoritos del asistente (`prefetch_related('asistente__artistas_favoritos')`).
+- **`order_by`**: `-precio`.
+- **Error 404** si el festival o el tipo no existen.
 - **Optimización**: 3 consultas SQL fijas.
 - SQL equivalente comentado en la vista.
