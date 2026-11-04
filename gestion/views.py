@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Festival
+from django.shortcuts import render, get_object_or_404
+from .models import Festival, Actuacion, Entrada
 
 def index(request):
     # Vista principal
@@ -15,3 +15,57 @@ def lista_festivales(request):
         .order_by('fecha_inicio')
     )
     return render(request, 'gestion/lista_festivales.html', {'festivales': festivales})
+
+def detalle_festival(request, id):
+    # Muestra un festival concreto (id entero recibido por la URL) con todos
+    # sus datos relacionados: recinto (OneToOne), patrocinadores (ManyToMany),
+    # escenarios (ManyToOne reversa), actuaciones con su artista y escenario
+    # (ManyToMany con tabla intermedia Actuacion) y entradas con su asistente
+    # (ManyToOne). Si el festival no existe, devuelve un error 404.
+  
+    #   -- 1) El festival con su recinto
+    #   SELECT f.*, r.*
+    #   FROM gestion_festival f
+    #   INNER JOIN gestion_recinto r ON f.recinto_id = r.id
+    #   WHERE f.id = <id>;
+    #
+    #   -- 2) Patrocinadores y 3) escenarios del festival (prefetch_related)
+    #   SELECT p.* FROM gestion_patrocinador p
+    #   INNER JOIN gestion_festival_patrocinadores fp ON p.id = fp.patrocinador_id
+    #   WHERE fp.festival_id = <id>;
+    #   SELECT e.* FROM gestion_escenario e WHERE e.festival_id = <id>;
+    #
+    #   -- 4) Actuaciones del festival con su artista y su escenario
+    #   SELECT a.*, ar.*, e.*
+    #   FROM gestion_actuacion a
+    #   INNER JOIN gestion_artista ar ON a.artista_id = ar.id
+    #   LEFT JOIN gestion_escenario e ON a.escenario_id = e.id
+    #   WHERE a.festival_id = <id>
+    #   ORDER BY a.fecha_hora ASC;
+    #
+    #   -- 5) Entradas del festival con su asistente
+    # 
+    festival = get_object_or_404(
+        Festival.objects
+        .select_related('recinto')
+        .prefetch_related('patrocinadores', 'escenarios'),
+        id=id,
+    )
+    actuaciones = (
+        Actuacion.objects
+        .select_related('artista', 'escenario')
+        .filter(festival=festival)
+        .order_by('fecha_hora')
+    )
+    entradas = (
+        Entrada.objects
+        .select_related('asistente')
+        .filter(festival=festival)
+        .order_by('fecha_compra')
+    )
+    contexto = {
+        'festival': festival,
+        'actuaciones': actuaciones,
+        'entradas': entradas,
+    }
+    return render(request, 'gestion/detalle_festival.html', contexto)

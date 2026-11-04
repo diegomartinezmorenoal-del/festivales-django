@@ -1,0 +1,105 @@
+{% extends 'gestion/base.html' %}
+
+{% block titulo %}{{ festival.nombre }}{% endblock %}
+
+{% block contenido %}
+<h1>{{ festival.nombre }}</h1>
+
+<div class="tarjeta">
+    <p>{{ festival.descripcion }}</p>
+    <p>
+        <strong>Fechas:</strong> {{ festival.fecha_inicio|date:"d/m/Y" }} - {{ festival.fecha_fin|date:"d/m/Y" }}<br>
+        <strong>Aforo:</strong> {{ festival.aforo }}<br>
+        <strong>Activo:</strong> {% if festival.activo %}Sí{% else %}No{% endif %}
+    </p>
+</div>
+
+<div class="tarjeta">
+    <h2>Recinto</h2>
+    <p>
+        <strong>{{ festival.recinto.nombre }}</strong><br>
+        Dirección: {{ festival.recinto.direccion }}<br>
+        Capacidad: {{ festival.recinto.capacidad }}<br>
+        Coordenadas: {{ festival.recinto.latitud }}, {{ festival.recinto.longitud }}
+    </p>
+</div>
+
+<div class="tarjeta">
+    <h2>Patrocinadores</h2>
+    <table>
+        <tr><th>Nombre</th><th>CIF</th><th>Aportación</th><th>Sector</th><th>Web</th></tr>
+        {% for patrocinador in festival.patrocinadores.all %}
+        <tr>
+            <td>{{ patrocinador.nombre }}</td>
+            <td>{{ patrocinador.cif }}</td>
+            <td>{{ patrocinador.aportacion }} €</td>
+            <td>{{ patrocinador.sector }}</td>
+            <td>{{ patrocinador.web }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Sin patrocinadores</td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="tarjeta">
+    <h2>Escenarios</h2>
+    <table>
+        <tr><th>Nombre</th><th>Tipo</th><th>Capacidad</th><th>Techado</th></tr>
+        {% for escenario in festival.escenarios.all %}
+        <tr>
+            <td>{{ escenario.nombre }}</td>
+            <td>{{ escenario.get_tipo_display }}</td>
+            <td>{{ escenario.capacidad }}</td>
+            <td>{% if escenario.techado %}Sí{% else %}No{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Sin escenarios</td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="tarjeta">
+    <h2>Actuaciones</h2>
+    <table>
+        <tr>
+            <th>Artista</th><th>Género</th><th>Escenario</th><th>Fecha y hora</th>
+            <th>Duración</th><th>Caché pactado</th><th>Cancelada</th>
+        </tr>
+        {% for actuacion in actuaciones %}
+        <tr>
+            <td>{{ actuacion.artista.nombre_artistico }}</td>
+            <td>{{ actuacion.artista.get_genero_display }}</td>
+            <td>{% if actuacion.escenario %}{{ actuacion.escenario.nombre }}{% else %}Sin asignar{% endif %}</td>
+            <td>{{ actuacion.fecha_hora|date:"d/m/Y H:i" }}</td>
+            <td>{{ actuacion.duracion }}</td>
+            <td>{{ actuacion.cache_pactado }} €</td>
+            <td>{% if actuacion.cancelada %}Sí{% else %}No{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7">Sin actuaciones</td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="tarjeta">
+    <h2>Entradas vendidas</h2>
+    <table>
+        <tr><th>Código</th><th>Tipo</th><th>Precio</th><th>Asistente</th><th>Email</th><th>Usada</th></tr>
+        {% for entrada in entradas %}
+        <tr>
+            <td>{{ entrada.codigo }}</td>
+            <td>{{ entrada.get_tipo_display }}</td>
+            <td>{{ entrada.precio }} €</td>
+            <td>{{ entrada.asistente.nombre }} {{ entrada.asistente.apellidos }}</td>
+            <td>{{ entrada.asistente.email }}</td>
+            <td>{% if entrada.usada %}Sí{% else %}No{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Sin entradas vendidas</td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+<p><a href="{% url 'lista_festivales' %}">Volver a la lista de festivales</a></p>
+{% endblock %}

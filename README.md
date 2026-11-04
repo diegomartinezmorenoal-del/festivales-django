@@ -446,3 +446,22 @@ python3 manage.py loaddata gestion/fixtures/backup.json
 | `--output archivo` | Guarda el resultado en un archivo en vez de mostrarlo en pantalla. |
 | `loaddata archivo` | Carga en la base de datos los datos de un fixture. |
 | `rm db.sqlite3` | Borra la base de datos local para recrearla desde cero (se puede porque no se sube a git). |
+
+## 13. URLs y vistas
+
+| # | URL | Vista | Plantilla |
+|---|---|---|---|
+| 1 | `/` | `index` | `index.html` |
+| 2 | `/festivales/` | `lista_festivales` | `lista_festivales.html` |
+
+### URL 2: `/festivales/` (`lista_festivales`)
+
+Lista todos los festivales ordenados por fecha de inicio con todos sus datos relacionados.
+
+Requisitos que cumple:
+- **OneToOne**: recinto del festival (`select_related('recinto')`).
+- **ManyToMany**: patrocinadores (`prefetch_related('patrocinadores')`).
+- **Relación reversa**: escenarios del festival (`prefetch_related('escenarios')`).
+- **`order_by`**: ordenados por `fecha_inicio`.
+- **Optimización**: solo 3 consultas SQL, sin importar cuántos festivales haya.
+- SQL equivalente comentado en la vista.
