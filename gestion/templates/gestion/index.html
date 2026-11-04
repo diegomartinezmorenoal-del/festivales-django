@@ -6,13 +6,16 @@
 <h1>Gestión de festivales de música</h1>
 <div class="tarjeta">
     <h2>Menú de URLs</h2>
-    <ul>
-      <li><a href="{% url 'index' %}">Inicio</a></li>
-<li><a href="{% url 'lista_festivales' %}">Lista de festivales</a></li>
-<li><a href="{% url 'detalle_festival' 1 %}">Detalle del festival 1</a></li>
-<li><a href="{% url 'artistas_por_genero' 'rock' %}">Artistas de rock</a></li>
-<li><a href="{% url 'artistas_por_genero' 'electronica' %}">Artistas de electrónica</a></li>
-<li><a href="{% url 'artistas_por_genero' 'flamenco' %}">Artistas de flamenco</a></li>
-    </ul>
+<ul>
+    <li><a href="{% url 'index' %}">Inicio</a></li>
+    <li><a href="{% url 'lista_festivales' %}">Lista de festivales</a></li>
+    <li><a href="{% url 'detalle_festival' 1 %}">Detalle del festival 1</a></li>
+    <li><a href="{% url 'artistas_por_genero' 'rock' %}">Artistas de rock</a></li>
+    <li><a href="{% url 'artistas_por_genero' 'electronica' %}">Artistas de electrónica</a></li>
+    <li><a href="{% url 'artistas_por_genero' 'flamenco' %}">Artistas de flamenco</a></li>
+    <li><a href="{% url 'entradas_festival' 1 'vip' %}">Entradas VIP del festival 1</a></li>
+    <li><a href="{% url 'entradas_festival' 1 'general' %}">Entradas generales del festival 1</a></li>
+    <li><a href="{% url 'entradas_festival' 2 'abono' %}">Abonos del festival 2</a></li>
+</ul>
 </div>
 {% endblock %}

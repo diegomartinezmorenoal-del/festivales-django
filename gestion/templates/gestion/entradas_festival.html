@@ -1,0 +1,52 @@
+{% extends 'gestion/base.html' %}
+
+{% block titulo %}Entradas {{ tipo }} - {{ festival.nombre }}{% endblock %}
+
+{% block contenido %}
+<h1>Entradas {{ tipo }}: {{ festival.nombre }}</h1>
+<p>
+    Recinto: {{ festival.recinto.nombre }} ({{ festival.recinto.direccion }}).
+    Ordenadas de más a menos caras.
+</p>
+
+{% for entrada in entradas %}
+<div class="tarjeta">
+    <h2>Entrada {{ entrada.codigo }}</h2>
+    <p>
+        <strong>Tipo:</strong> {{ entrada.get_tipo_display }}<br>
+        <strong>Precio:</strong> {{ entrada.precio }} €<br>
+        <strong>Comprada:</strong> {{ entrada.fecha_compra|date:"d/m/Y H:i" }}<br>
+        <strong>Usada:</strong> {% if entrada.usada %}Sí{% else %}No{% endif %}
+    </p>
+
+    <h3>Asistente</h3>
+    <p>
+        {{ entrada.asistente.nombre }} {{ entrada.asistente.apellidos }}<br>
+        Email: {{ entrada.asistente.email }}<br>
+        Teléfono: {{ entrada.asistente.telefono }}<br>
+        Nacimiento: {{ entrada.asistente.fecha_nacimiento|date:"d/m/Y" }}
+    </p>
+
+    <h3>Carnet</h3>
+    <p>
+        Código: {{ entrada.asistente.carnet.codigo }}<br>
+        Puntos: {{ entrada.asistente.carnet.puntos }}<br>
+        Emitido: {{ entrada.asistente.carnet.fecha_emision|date:"d/m/Y" }}<br>
+        Activo: {% if entrada.asistente.carnet.activo %}Sí{% else %}No{% endif %}
+    </p>
+
+    <h3>Artistas favoritos del asistente</h3>
+    <ul>
+        {% for artista in entrada.asistente.artistas_favoritos.all %}
+        <li>{{ artista.nombre_artistico }} ({{ artista.get_genero_display }})</li>
+        {% empty %}
+        <li>Ninguno</li>
+        {% endfor %}
+    </ul>
+</div>
+{% empty %}
+<p>No hay entradas de este tipo para este festival.</p>
+{% endfor %}
+
+<p><a href="{% url 'detalle_festival' festival.id %}">Volver al festival</a></p>
+{% endblock %}

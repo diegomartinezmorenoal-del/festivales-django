@@ -454,6 +454,7 @@ python3 manage.py loaddata gestion/fixtures/backup.json
 | 1 | `/` | `index` | `index.html` |
 | 2 | `/festivales/` | `lista_festivales` | `lista_festivales.html` |
 | 3 | `/festival/<int:id>/` | `detalle_festival` | `detalle_festival.html` |
+| 4 | `/artistas/<str:genero>/` | `artistas_por_genero` | `artistas_por_genero.html` |
 
 ### URL 2: `/festivales/` (`lista_festivales`)
 
@@ -479,4 +480,19 @@ Requisitos que cumple:
 - **Filtro AND implícito**: `filter(festival=festival)` junto con el orden.
 - **Error 404** si el festival no existe (`get_object_or_404`).
 - **Optimización**: 5 consultas SQL fijas, sin importar el número de registros.
+- SQL equivalente comentado en la vista.
+
+### URL 4: `/artistas/<str:genero>/` (`artistas_por_genero`)
+
+Lista los artistas de un género con popularidad de 40 o más, de más a menos populares.
+
+Requisitos que cumple:
+- **Parámetro str**: `<str:genero>`.
+- **Filtro con AND**: `filter(genero=genero, popularidad__gte=40)`.
+- **OneToOne**: perfil del artista (`select_related('perfil')`).
+- **ManyToMany con tabla intermedia**: actuaciones con festival y escenario (`Prefetch` sobre `actuacion_set`).
+- **ManyToMany reversa**: asistentes que lo tienen como favorito (`prefetch_related('seguidores')`).
+- **`order_by`**: `-popularidad`.
+- **Error 404** si el género no existe.
+- **Optimización**: 3 consultas SQL fijas.
 - SQL equivalente comentado en la vista.

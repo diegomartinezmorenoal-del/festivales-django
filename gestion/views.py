@@ -113,3 +113,40 @@ def artistas_por_genero(request, genero):
         'genero': generos_validos[genero],
     }
     return render(request, 'gestion/artistas_por_genero.html', contexto)
+
+
+def entradas_festival(request, id, tipo):
+    # Lista las entradas de un tipo concreto (general, vip o abono) vendidas
+    # para un festival. Recibe dos parámetros por la URL: el id del festival
+    # (entero) y el tipo de entrada (texto). Filtra con AND por festival y
+    # tipo, y las ordena de más a menos caras. Para cada entrada muestra al
+    # asistente (ManyToOne), su carnet (OneToOne reversa) y sus artistas
+    # favoritos (ManyToMany). Si el festival o el tipo no existen, devuelve
+    # un error 404.
+    #
+    # SQL equivalente (3 consultas):
+    #   -- 1) El festival con su recinto
+    #   -- 2) Entradas del tipo pedido con su asistente y el carnet
+    #   -- 3) Artistas favoritos de esos asistentes
+    
+    tipos_validos = dict(Entrada.TIPOS)
+    if tipo not in tipos_validos:
+        raise Http404("Tipo de entrada no válido")
+
+    festival = get_object_or_404(
+        Festival.objects.select_related('recinto'),
+        id=id,
+    )
+    entradas = (
+        Entrada.objects
+        .select_related('asistente', 'asistente__carnet')
+        .prefetch_related('asistente__artistas_favoritos')
+        .filter(festival=festival, tipo=tipo)
+        .order_by('-precio')
+    )
+    contexto = {
+        'festival': festival,
+        'tipo': tipos_validos[tipo],
+        'entradas': entradas,
+    }
+    return render(request, 'gestion/entradas_festival.html', contexto)
