@@ -453,6 +453,7 @@ python3 manage.py loaddata gestion/fixtures/backup.json
 |---|---|---|---|
 | 1 | `/` | `index` | `index.html` |
 | 2 | `/festivales/` | `lista_festivales` | `lista_festivales.html` |
+| 3 | `/festival/<int:id>/` | `detalle_festival` | `detalle_festival.html` |
 
 ### URL 2: `/festivales/` (`lista_festivales`)
 
@@ -464,4 +465,18 @@ Requisitos que cumple:
 - **Relación reversa**: escenarios del festival (`prefetch_related('escenarios')`).
 - **`order_by`**: ordenados por `fecha_inicio`.
 - **Optimización**: solo 3 consultas SQL, sin importar cuántos festivales haya.
+- SQL equivalente comentado en la vista.
+### URL 3: `/festival/<int:id>/` (`detalle_festival`)
+
+Muestra un festival concreto con toda su información relacionada.
+
+Requisitos que cumple:
+- **Parámetro entero**: `<int:id>`.
+- **OneToOne**: recinto (`select_related('recinto')`).
+- **ManyToMany**: patrocinadores (`prefetch_related`).
+- **ManyToMany con tabla intermedia**: artistas a través de `Actuacion`, mostrando fecha, duración, caché y si está cancelada.
+- **ManyToOne**: escenarios y entradas, estas con su asistente.
+- **Filtro AND implícito**: `filter(festival=festival)` junto con el orden.
+- **Error 404** si el festival no existe (`get_object_or_404`).
+- **Optimización**: 5 consultas SQL fijas, sin importar el número de registros.
 - SQL equivalente comentado en la vista.
