@@ -1,0 +1,60 @@
+{% extends 'gestion/base.html' %}
+
+{% block titulo %}Festivales{% endblock %}
+
+{% block contenido %}
+<h1>Festivales</h1>
+
+{% for festival in festivales %}
+<div class="tarjeta">
+    <h2>{{ festival.nombre }}</h2>
+    <p>{{ festival.descripcion }}</p>
+    <p>
+        <strong>Fechas:</strong> {{ festival.fecha_inicio|date:"d/m/Y" }} - {{ festival.fecha_fin|date:"d/m/Y" }}<br>
+        <strong>Aforo:</strong> {{ festival.aforo }}<br>
+        <strong>Activo:</strong> {% if festival.activo %}Sí{% else %}No{% endif %}
+    </p>
+
+    <h3>Recinto</h3>
+    <p>
+        <strong>{{ festival.recinto.nombre }}</strong><br>
+        Dirección: {{ festival.recinto.direccion }}<br>
+        Capacidad: {{ festival.recinto.capacidad }}<br>
+        Coordenadas: {{ festival.recinto.latitud }}, {{ festival.recinto.longitud }}
+    </p>
+
+    <h3>Patrocinadores</h3>
+    <table>
+        <tr><th>Nombre</th><th>CIF</th><th>Aportación</th><th>Sector</th><th>Web</th></tr>
+        {% for patrocinador in festival.patrocinadores.all %}
+        <tr>
+            <td>{{ patrocinador.nombre }}</td>
+            <td>{{ patrocinador.cif }}</td>
+            <td>{{ patrocinador.aportacion }} €</td>
+            <td>{{ patrocinador.sector }}</td>
+            <td>{{ patrocinador.web }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">Sin patrocinadores</td></tr>
+        {% endfor %}
+    </table>
+
+    <h3>Escenarios</h3>
+    <table>
+        <tr><th>Nombre</th><th>Tipo</th><th>Capacidad</th><th>Techado</th></tr>
+        {% for escenario in festival.escenarios.all %}
+        <tr>
+            <td>{{ escenario.nombre }}</td>
+            <td>{{ escenario.get_tipo_display }}</td>
+            <td>{{ escenario.capacidad }}</td>
+            <td>{% if escenario.techado %}Sí{% else %}No{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Sin escenarios</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% empty %}
+<p>No hay festivales.</p>
+{% endfor %}
+{% endblock %}
