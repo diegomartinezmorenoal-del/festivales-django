@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 from django.shortcuts import render, get_object_or_404
 from .models import Festival, Actuacion, Entrada, Artista
 
@@ -150,3 +150,47 @@ def entradas_festival(request, id, tipo):
         'entradas': entradas,
     }
     return render(request, 'gestion/entradas_festival.html', contexto)
+
+def festivales_por_anio(request, anio):
+    # Lista los festivales que empiezan O terminan en el año indicado por la
+    # URL (4 dígitos, validados con una expresión regular en re_path).
+    # Usa un filtro con OR mediante Q y ordena por fecha de inicio. Muestra
+    # el recinto (OneToOne), los patrocinadores (ManyToMany), los escenarios
+    # (ManyToOne reversa) y las actuaciones con su artista y escenario
+    # (ManyToMany con tabla intermedia Actuacion).
+    #
+    # SQL equivalente (4 consultas):
+    #   -- 1) Festivales del año con su recinto (filtro OR)
+    #   SELECT f.*, r.*
+    #   FROM gestion_festival f
+    #   INNER JOIN gestion_recinto r ON f.recinto_id = r.id
+    #   WHERE f.fecha_inicio BETWEEN '<anio>-01-01' AND '<anio>-12-31'
+    #      OR f.fecha_fin BETWEEN '<anio>-01-01' AND '<anio>-12-31'
+    #   ORDER BY f.fecha_inicio ASC;
+    #
+    #   -- 2) Patrocinadores de esos festivales
+    #   -- 3) Escenarios de esos festivales
+    #   -- 4) Actuaciones con su artista y su escenario
+
+    anio = int(anio)
+    festivales = (
+        Festival.objects
+        .select_related('recinto')
+        .prefetch_related(
+            'patrocinadores',
+            'escenarios',
+            Prefetch(
+                'actuacion_set',
+                queryset=Actuacion.objects
+                .select_related('artista', 'escenario')
+                .order_by('fecha_hora'),
+            ),
+        )
+        .filter(Q(fecha_inicio__year=anio) | Q(fecha_fin__year=anio))
+        .order_by('fecha_inicio')
+    )
+    contexto = {
+        'festivales': festivales,
+        'añio': anio,
+    }
+    return render(request, 'gestion/festivales_por_anio.html', contexto)

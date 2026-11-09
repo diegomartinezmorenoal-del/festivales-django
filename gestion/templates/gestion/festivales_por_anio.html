@@ -1,0 +1,69 @@
+{% extends 'gestion/base.html' %}
+
+{% block titulo %}Festivales de {{ anio }}{% endblock %}
+
+{% block contenido %}
+<h1>Festivales de {{ anio }}</h1>
+<p>Festivales que empiezan o terminan en {{ anio }}, ordenados por fecha de inicio.</p>
+
+{% for festival in festivales %}
+<div class="tarjeta">
+    <h2><a href="{% url 'detalle_festival' festival.id %}">{{ festival.nombre }}</a></h2>
+    <p>{{ festival.descripcion }}</p>
+    <p>
+        <strong>Fechas:</strong> {{ festival.fecha_inicio|date:"d/m/Y" }} - {{ festival.fecha_fin|date:"d/m/Y" }}<br>
+        <strong>Aforo:</strong> {{ festival.aforo }}<br>
+        <strong>Activo:</strong> {% if festival.activo %}Sí{% else %}No{% endif %}
+    </p>
+
+    <h3>Recinto</h3>
+    <p>
+        <strong>{{ festival.recinto.nombre }}</strong><br>
+        Dirección: {{ festival.recinto.direccion }}<br>
+        Capacidad: {{ festival.recinto.capacidad }}
+    </p>
+
+    <h3>Patrocinadores</h3>
+    <ul>
+        {% for patrocinador in festival.patrocinadores.all %}
+        <li>{{ patrocinador.nombre }} ({{ patrocinador.sector }}) - {{ patrocinador.aportacion }} €</li>
+        {% empty %}
+        <li>Sin patrocinadores</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Escenarios</h3>
+    <ul>
+        {% for escenario in festival.escenarios.all %}
+        <li>{{ escenario.nombre }} - {{ escenario.get_tipo_display }}, capacidad {{ escenario.capacidad }}</li>
+        {% empty %}
+        <li>Sin escenarios</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Actuaciones</h3>
+    <table>
+        <tr>
+            <th>Artista</th><th>Género</th><th>Escenario</th>
+            <th>Fecha y hora</th><th>Duración</th><th>Caché pactado</th>
+        </tr>
+        {% for actuacion in festival.actuacion_set.all %}
+        <tr>
+            <td>{{ actuacion.artista.nombre_artistico }}</td>
+            <td>{{ actuacion.artista.get_genero_display }}</td>
+            <td>{% if actuacion.escenario %}{{ actuacion.escenario.nombre }}{% else %}Sin asignar{% endif %}</td>
+            <td>{{ actuacion.fecha_hora|date:"d/m/Y H:i" }}</td>
+            <td>{{ actuacion.duracion }}</td>
+            <td>{{ actuacion.cache_pactado }} €</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Sin actuaciones</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% empty %}
+<p>No hay festivales que empiecen o terminen en {{ anio }}.</p>
+{% endfor %}
+
+<p><a href="{% url 'index' %}">Volver al inicio</a></p>
+{% endblock %}
