@@ -459,6 +459,9 @@ python3 manage.py loaddata gestion/fixtures/backup.json
 | 6 | `/festivales/anio/<año>/` | `festivales_por_anio` | `festivales_por_anio.html` |
 | 7 | `/artistas/top/` | `top_artistas` | `top_artistas.html` |
 | 8 | `/estadisticas/entradas/` | `estadisticas_entradas` | `estadisticas_entradas.html` |
+| 9 | `/actuaciones/sin-escenario/` | `actuaciones_sin_escenario` | `actuaciones_sin_escenario.html` |
+
+
 
 ### URL 2: `/festivales/` (`lista_festivales`)
 
@@ -556,3 +559,17 @@ Requisitos que cumple:
 - SQL equivalente comentado en la vista.
 
 Investigación sobre `aggregate`: calcula un valor a partir de todas las filas de un QuerySet y devuelve un diccionario. Es una operación final: se ejecuta en el momento y no admite más filtros encadenados. Se diferencia de `annotate`, que añade el cálculo a cada objeto en lugar de devolver un único resultado.
+### URL 9: `/actuaciones/sin-escenario/` (`actuaciones_sin_escenario`)
+
+Lista las actuaciones que todavía no tienen escenario asignado.
+
+Requisitos que cumple:
+- **Filtro con `None` en una tabla intermedia**: `filter(escenario__isnull=True)` sobre `Actuacion`, la tabla intermedia de la ManyToMany `Artista`-`Festival`.
+- **OneToOne**: perfil del artista (`artista__perfil`) y recinto del festival (`festival__recinto`).
+- **ManyToOne**: festival de la actuación (`select_related('festival')`).
+- **ManyToMany**: seguidores del artista (`prefetch_related('artista__seguidores')`).
+- **Relación reversa**: escenarios disponibles del festival (`prefetch_related('festival__escenarios')`).
+- **`order_by`**: `fecha_hora`.
+- **Optimización**: 3 consultas SQL fijas.
+- SQL equivalente comentado en la vista.
+- Los datos de prueba (`datos_pruebas.json`) incluyen actuaciones sin escenario para que la URL muestre resultados.

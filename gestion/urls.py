@@ -11,4 +11,5 @@ urlpatterns = [
     re_path(r'^festivales/anio/(?P<anio>[0-9]{4})/$', views.festivales_por_anio, name='festivales_por_anio'),
     path('estadisticas/entradas/', views.estadisticas_entradas, name='estadisticas_entradas'),
     path('actuaciones/sin-escenario/', views.actuaciones_sin_escenario, name='actuaciones_sin_escenario'),
+    path('asistentes/', views.lista_asistentes, name='lista_asistentes'),
 ]

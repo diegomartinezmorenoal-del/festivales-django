@@ -1,0 +1,57 @@
+{% extends 'gestion/base.html' %}
+
+{% block titulo %}Asistentes{% endblock %}
+
+{% block contenido %}
+<h1>Asistentes</h1>
+<p>Ordenados por apellidos y nombre.</p>
+
+{% for asistente in asistentes %}
+<div class="tarjeta">
+    <h2>{{ asistente.apellidos }}, {{ asistente.nombre }}</h2>
+    <p>
+        <strong>Email:</strong> {{ asistente.email }}<br>
+        <strong>Teléfono:</strong> {{ asistente.telefono }}<br>
+        <strong>Nacimiento:</strong> {{ asistente.fecha_nacimiento|date:"d/m/Y" }}
+    </p>
+
+    <h3>Carnet</h3>
+    <p>
+        Código: {{ asistente.carnet.codigo }}<br>
+        Puntos: {{ asistente.carnet.puntos }}<br>
+        Emitido: {{ asistente.carnet.fecha_emision|date:"d/m/Y" }}<br>
+        Activo: {% if asistente.carnet.activo %}Sí{% else %}No{% endif %}
+    </p>
+
+    <h3>Artistas favoritos</h3>
+    <ul>
+        {% for artista in asistente.artistas_favoritos.all %}
+        <li>{{ artista.nombre_artistico }} ({{ artista.get_genero_display }}), popularidad {{ artista.popularidad }}</li>
+        {% empty %}
+        <li>Ninguno</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Entradas compradas</h3>
+    <table>
+        <tr><th>Código</th><th>Tipo</th><th>Precio</th><th>Festival</th><th>Comprada</th><th>Usada</th></tr>
+        {% for entrada in asistente.entradas.all %}
+        <tr>
+            <td>{{ entrada.codigo }}</td>
+            <td>{{ entrada.get_tipo_display }}</td>
+            <td>{{ entrada.precio }} €</td>
+            <td><a href="{% url 'detalle_festival' entrada.festival.id %}">{{ entrada.festival.nombre }}</a></td>
+            <td>{{ entrada.fecha_compra|date:"d/m/Y H:i" }}</td>
+            <td>{% if entrada.usada %}Sí{% else %}No{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Sin entradas</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% empty %}
+<p>No hay asistentes.</p>
+{% endfor %}
+
+<p><a href="{% url 'index' %}">Volver al inicio</a></p>
+{% endblock %}

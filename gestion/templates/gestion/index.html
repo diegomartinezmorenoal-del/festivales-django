@@ -4,22 +4,72 @@
 
 {% block contenido %}
 <h1>Gestión de festivales de música</h1>
+
 <div class="tarjeta">
     <h2>Menú de URLs</h2>
-<ul>
-    <li><a href="{% url 'index' %}">Inicio</a></li>
-    <li><a href="{% url 'lista_festivales' %}">Lista de festivales</a></li>
-    <li><a href="{% url 'detalle_festival' 1 %}">Detalle del festival 1</a></li>
-    <li><a href="{% url 'artistas_por_genero' 'rock' %}">Artistas de rock</a></li>
-    <li><a href="{% url 'artistas_por_genero' 'electronica' %}">Artistas de electrónica</a></li>
-    <li><a href="{% url 'artistas_por_genero' 'flamenco' %}">Artistas de flamenco</a></li>
-    <li><a href="{% url 'entradas_festival' 1 'vip' %}">Entradas VIP del festival 1</a></li>
-    <li><a href="{% url 'entradas_festival' 1 'general' %}">Entradas generales del festival 1</a></li>
-    <li><a href="{% url 'entradas_festival' 2 'abono' %}">Abonos del festival 2</a></li>
-    <li><a href="{% url 'festivales_por_anio' 2026 %}">Festivales de 2026</a></li>
-    <li><a href="{% url 'festivales_por_anio' 2027 %}">Festivales de 2027</a></li>
-    <li><a href="{% url 'top_artistas' %}">Top 5 artistas más populares</a></li>
-    <li><a href="{% url 'estadisticas_entradas' %}">Estadísticas de entradas (aggregate)</a></li><li><a href="{% url 'actuaciones_sin_escenario' %}">Actuaciones sin escenario</a></li>
-</ul>
+    <table>
+        <tr><th>#</th><th>Página</th><th>Qué muestra</th></tr>
+        <tr>
+            <td>1</td>
+            <td><a href="{% url 'index' %}">Inicio</a></td>
+            <td>Este menú</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td><a href="{% url 'lista_festivales' %}">Lista de festivales</a></td>
+            <td>Festivales con recinto, patrocinadores y escenarios</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td><a href="{% url 'detalle_festival' 1 %}">Detalle del festival 1</a></td>
+            <td>Un festival completo (parámetro entero)</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>
+                <a href="{% url 'artistas_por_genero' 'rock' %}">Rock</a> |
+                <a href="{% url 'artistas_por_genero' 'electronica' %}">Electrónica</a> |
+                <a href="{% url 'artistas_por_genero' 'flamenco' %}">Flamenco</a>
+            </td>
+            <td>Artistas por género (parámetro str)</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>
+                <a href="{% url 'entradas_festival' 1 'vip' %}">VIP</a> |
+                <a href="{% url 'entradas_festival' 1 'general' %}">General</a> |
+                <a href="{% url 'entradas_festival' 2 'abono' %}">Abono</a>
+            </td>
+            <td>Entradas de un festival (dos parámetros)</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>
+                <a href="{% url 'festivales_por_anio' 2026 %}">2026</a> |
+                <a href="{% url 'festivales_por_anio' 2027 %}">2027</a>
+            </td>
+            <td>Festivales por año (re_path y filtro OR)</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td><a href="{% url 'top_artistas' %}">Top 5 artistas</a></td>
+            <td>Los más populares (order_by y límite)</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td><a href="{% url 'estadisticas_entradas' %}">Estadísticas de entradas</a></td>
+            <td>Números globales (aggregate)</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td><a href="{% url 'actuaciones_sin_escenario' %}">Actuaciones sin escenario</a></td>
+            <td>Filtro con None en la tabla intermedia</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td><a href="{% url 'lista_asistentes' %}">Asistentes</a></td>
+            <td>Asistentes con carnet, favoritos y entradas</td>
+        </tr>
+    </table>
 </div>
 {% endblock %}

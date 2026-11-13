@@ -1,8 +1,7 @@
 from django.http import Http404
 from django.db.models import Prefetch, Q, Count, Sum, Avg, Max, Min
 from django.shortcuts import render, get_object_or_404
-from .models import Festival, Actuacion, Entrada, Artista
-
+from .models import Festival, Actuacion, Entrada, Artista, Asistente
 def index(request):
     # Vista principal
     return render(request, 'gestion/index.html')
@@ -273,3 +272,32 @@ def actuaciones_sin_escenario(request):
         .order_by('fecha_hora')
     )
     return render(request, 'gestion/actuaciones_sin_escenario.html', {'actuaciones': actuaciones})
+
+def lista_asistentes(request):
+    # Lista todos los asistentes ordenados por apellidos y nombre. Para cada
+    # uno muestra su carnet (OneToOne), sus artistas favoritos (ManyToMany)
+    # y las entradas que ha comprado con el festival de cada una (ManyToOne
+    # reversa: Entrada -> Asistente).
+    #
+    # SQL equivalente (3 consultas):
+    #   -- 1) Asistentes con su carnet
+ 
+    #   -- 2) Artistas favoritos de esos asistentes (tabla intermedia automática)
+  
+    #   -- 3) Entradas de esos asistentes con su festival
+
+    asistentes = (
+        Asistente.objects
+        .select_related('carnet')
+        .prefetch_related(
+            'artistas_favoritos',
+            Prefetch(
+                'entradas',
+                queryset=Entrada.objects
+                .select_related('festival')
+                .order_by('fecha_compra'),
+            ),
+        )
+        .order_by('apellidos', 'nombre')
+    )
+    return render(request, 'gestion/lista_asistentes.html', {'asistentes': asistentes})
