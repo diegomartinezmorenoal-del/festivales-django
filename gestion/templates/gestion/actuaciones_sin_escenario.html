@@ -1,0 +1,60 @@
+{% extends 'gestion/base.html' %}
+
+{% block titulo %}Actuaciones sin escenario{% endblock %}
+
+{% block contenido %}
+<h1>Actuaciones sin escenario asignado</h1>
+<p>Actuaciones pendientes de asignar escenario, ordenadas por fecha.</p>
+
+{% for actuacion in actuaciones %}
+<div class="tarjeta">
+    <h2>{{ actuacion.artista.nombre_artistico }} en {{ actuacion.festival.nombre }}</h2>
+    <p>
+        <strong>Fecha y hora:</strong> {{ actuacion.fecha_hora|date:"d/m/Y H:i" }}<br>
+        <strong>Duración:</strong> {{ actuacion.duracion }}<br>
+        <strong>Caché pactado:</strong> {{ actuacion.cache_pactado }} €<br>
+        <strong>Cancelada:</strong> {% if actuacion.cancelada %}Sí{% else %}No{% endif %}<br>
+        <strong>Escenario:</strong> Sin asignar
+    </p>
+
+    <h3>Artista</h3>
+    <p>
+        {{ actuacion.artista.nombre_artistico }} ({{ actuacion.artista.get_genero_display }})<br>
+        Popularidad: {{ actuacion.artista.popularidad }}<br>
+        Web: {{ actuacion.artista.perfil.web }}<br>
+        Instagram: {{ actuacion.artista.perfil.instagram }}<br>
+        Caché habitual: {{ actuacion.artista.perfil.cache }} €<br>
+        Contrato exclusivo: {% if actuacion.artista.perfil.contrato_exclusivo %}Sí{% else %}No{% endif %}
+    </p>
+
+    <h3>Seguidores del artista</h3>
+    <ul>
+        {% for asistente in actuacion.artista.seguidores.all %}
+        <li>{{ asistente.nombre }} {{ asistente.apellidos }} ({{ asistente.email }})</li>
+        {% empty %}
+        <li>Nadie todavía</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Festival</h3>
+    <p>
+        <a href="{% url 'detalle_festival' actuacion.festival.id %}">{{ actuacion.festival.nombre }}</a><br>
+        Fechas: {{ actuacion.festival.fecha_inicio|date:"d/m/Y" }} - {{ actuacion.festival.fecha_fin|date:"d/m/Y" }}<br>
+        Recinto: {{ actuacion.festival.recinto.nombre }} ({{ actuacion.festival.recinto.direccion }})
+    </p>
+
+    <h3>Escenarios disponibles en este festival</h3>
+    <ul>
+        {% for escenario in actuacion.festival.escenarios.all %}
+        <li>{{ escenario.nombre }} - {{ escenario.get_tipo_display }}, capacidad {{ escenario.capacidad }}, techado: {% if escenario.techado %}sí{% else %}no{% endif %}</li>
+        {% empty %}
+        <li>Este festival no tiene escenarios</li>
+        {% endfor %}
+    </ul>
+</div>
+{% empty %}
+<p>Todas las actuaciones tienen escenario asignado.</p>
+{% endfor %}
+
+<p><a href="{% url 'index' %}">Volver al inicio</a></p>
+{% endblock %}

@@ -251,3 +251,25 @@ def estadisticas_entradas(request):
         'mas_caras': mas_caras,
     }
     return render(request, 'gestion/estadisticas_entradas.html', contexto)
+def actuaciones_sin_escenario(request):
+    # Lista las actuaciones que todavía no tienen escenario asignado, es decir,
+    # las filas de la tabla intermedia Actuacion cuyo campo escenario es NULL.
+    # Las ordena por fecha. Para cada una muestra el artista con su perfil
+    # (OneToOne), los asistentes que siguen al artista (ManyToMany), y el
+    # festival con su recinto (OneToOne) y los escenarios que tiene
+    # disponibles (relación reversa de Escenario -> Festival).
+    #
+    # SQL equivalente (3 consultas):
+    #   -- 1) Actuaciones sin escenario con artista, perfil, festival y recinto
+
+    #   -- 2) Asistentes que siguen a esos artistas
+
+    #   -- 3) Escenarios de los festivales implicados
+    actuaciones = (
+        Actuacion.objects
+        .select_related('artista', 'artista__perfil', 'festival', 'festival__recinto')
+        .prefetch_related('artista__seguidores', 'festival__escenarios')
+        .filter(escenario__isnull=True)
+        .order_by('fecha_hora')
+    )
+    return render(request, 'gestion/actuaciones_sin_escenario.html', {'actuaciones': actuaciones})
