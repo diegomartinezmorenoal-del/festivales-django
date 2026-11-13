@@ -1,5 +1,5 @@
 from django.http import Http404
-from django.db.models import Prefetch, Q
+from django.db.models import Prefetch, Q, Count, Sum, Avg, Max, Min
 from django.shortcuts import render, get_object_or_404
 from .models import Festival, Actuacion, Entrada, Artista
 
@@ -221,3 +221,33 @@ def top_artistas(request):
         .order_by('-popularidad', 'nombre_artistico')[:5]
     )
     return render(request, 'gestion/top_artistas.html', {'artistas': artistas})
+
+def estadisticas_entradas(request):
+    # Muestra estadísticas globales de las entradas vendidas calculadas con
+    # aggregate: número total, número de entradas usadas, recaudación, precio
+    # medio, máximo y mínimo. Además lista las 5 entradas más caras con su
+    # asistente y su carnet (ManyToOne y OneToOne reversa) y su festival con
+    # el recinto (ManyToOne y OneToOne).
+    #
+    # SQL equivalente (2 consultas):
+    #   -- 1) Cálculos agregados sobre toda la tabla
+    #   -- 2) Las 5 entradas más caras con asistente, carnet, festival y recinto
+
+    estadisticas = Entrada.objects.aggregate(
+        total_entradas=Count('id'),
+        entradas_usadas=Count('id', filter=Q(usada=True)),
+        recaudacion=Sum('precio'),
+        precio_medio=Avg('precio'),
+        precio_maximo=Max('precio'),
+        precio_minimo=Min('precio'),
+    )
+    mas_caras = (
+        Entrada.objects
+        .select_related('asistente', 'asistente__carnet', 'festival', 'festival__recinto')
+        .order_by('-precio')[:5]
+    )
+    contexto = {
+        'estadisticas': estadisticas,
+        'mas_caras': mas_caras,
+    }
+    return render(request, 'gestion/estadisticas_entradas.html', contexto)

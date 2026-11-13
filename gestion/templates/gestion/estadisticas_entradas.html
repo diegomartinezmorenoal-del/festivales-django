@@ -1,0 +1,56 @@
+{% extends 'gestion/base.html' %}
+
+{% block titulo %}Estadísticas de entradas{% endblock %}
+
+{% block contenido %}
+<h1>Estadísticas de entradas</h1>
+
+<div class="tarjeta">
+    <h2>Resumen global</h2>
+    <table>
+        <tr><th>Entradas vendidas</th><td>{{ estadisticas.total_entradas }}</td></tr>
+        <tr><th>Entradas usadas</th><td>{{ estadisticas.entradas_usadas }}</td></tr>
+        <tr><th>Recaudación total</th><td>{{ estadisticas.recaudacion|default:0 }} €</td></tr>
+        <tr><th>Precio medio</th><td>{{ estadisticas.precio_medio|floatformat:2|default:"0" }} €</td></tr>
+        <tr><th>Precio máximo</th><td>{{ estadisticas.precio_maximo|default:0 }} €</td></tr>
+        <tr><th>Precio mínimo</th><td>{{ estadisticas.precio_minimo|default:0 }} €</td></tr>
+    </table>
+</div>
+
+<h2>Las 5 entradas más caras</h2>
+{% for entrada in mas_caras %}
+<div class="tarjeta">
+    <h3>{{ forloop.counter }}. Entrada {{ entrada.codigo }} ({{ entrada.get_tipo_display }}): {{ entrada.precio }} €</h3>
+    <p>
+        <strong>Comprada:</strong> {{ entrada.fecha_compra|date:"d/m/Y H:i" }}<br>
+        <strong>Usada:</strong> {% if entrada.usada %}Sí{% else %}No{% endif %}
+    </p>
+
+    <h3>Asistente</h3>
+    <p>
+        {{ entrada.asistente.nombre }} {{ entrada.asistente.apellidos }}<br>
+        Email: {{ entrada.asistente.email }}<br>
+        Teléfono: {{ entrada.asistente.telefono }}<br>
+        Nacimiento: {{ entrada.asistente.fecha_nacimiento|date:"d/m/Y" }}
+    </p>
+
+    <h3>Carnet</h3>
+    <p>
+        Código: {{ entrada.asistente.carnet.codigo }}<br>
+        Puntos: {{ entrada.asistente.carnet.puntos }}<br>
+        Activo: {% if entrada.asistente.carnet.activo %}Sí{% else %}No{% endif %}
+    </p>
+
+    <h3>Festival</h3>
+    <p>
+        <a href="{% url 'detalle_festival' entrada.festival.id %}">{{ entrada.festival.nombre }}</a><br>
+        Fechas: {{ entrada.festival.fecha_inicio|date:"d/m/Y" }} - {{ entrada.festival.fecha_fin|date:"d/m/Y" }}<br>
+        Recinto: {{ entrada.festival.recinto.nombre }} ({{ entrada.festival.recinto.direccion }})
+    </p>
+</div>
+{% empty %}
+<p>No hay entradas.</p>
+{% endfor %}
+
+<p><a href="{% url 'index' %}">Volver al inicio</a></p>
+{% endblock %}

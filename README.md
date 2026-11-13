@@ -457,6 +457,7 @@ python3 manage.py loaddata gestion/fixtures/backup.json
 | 4 | `/artistas/<str:genero>/` | `artistas_por_genero` | `artistas_por_genero.html` |
 | 5 | `/festival/<int:id>/entradas/<str:tipo>/` | `entradas_festival` | `entradas_festival.html` |
 | 6 | `/festivales/anio/<año>/` | `festivales_por_anio` | `festivales_por_anio.html` |
+| 7 | `/artistas/top/` | `top_artistas` | `top_artistas.html` |
 ### URL 2: `/festivales/` (`lista_festivales`)
 
 Lista todos los festivales ordenados por fecha de inicio con todos sus datos relacionados.
@@ -526,3 +527,17 @@ Requisitos que cumple:
 - **`order_by`**: `fecha_inicio`.
 - **Optimización**: 4 consultas SQL fijas.
 - SQL equivalente comentado en la vista.
+
+### URL 7: `/artistas/top/` (`top_artistas`)
+
+Muestra los 5 artistas más populares.
+
+Requisitos que cumple:
+- **`order_by`**: `order_by('-popularidad', 'nombre_artistico')`, de mayor a menor y desempatando por nombre.
+- **Límite**: `[:5]`, que equivale a `LIMIT 5` en SQL.
+- **OneToOne**: perfil del artista (`select_related('perfil')`).
+- **ManyToMany con tabla intermedia**: actuaciones con festival y escenario (`Prefetch` sobre `actuacion_set`).
+- **ManyToMany reversa**: seguidores (`prefetch_related('seguidores')`).
+- **Optimización**: 3 consultas SQL fijas.
+- SQL equivalente comentado en la vista.
+- La URL está declarada antes que `artistas/<str:genero>/` para que `top` no se interprete como un género.
