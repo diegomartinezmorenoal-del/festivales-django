@@ -456,6 +456,7 @@ python3 manage.py loaddata gestion/fixtures/backup.json
 | 3 | `/festival/<int:id>/` | `detalle_festival` | `detalle_festival.html` |
 | 4 | `/artistas/<str:genero>/` | `artistas_por_genero` | `artistas_por_genero.html` |
 | 5 | `/festival/<int:id>/entradas/<str:tipo>/` | `entradas_festival` | `entradas_festival.html` |
+| 6 | `/festivales/anio/<año>/` | `festivales_por_anio` | `festivales_por_anio.html` |
 ### URL 2: `/festivales/` (`lista_festivales`)
 
 Lista todos los festivales ordenados por fecha de inicio con todos sus datos relacionados.
@@ -510,4 +511,18 @@ Requisitos que cumple:
 - **`order_by`**: `-precio`.
 - **Error 404** si el festival o el tipo no existen.
 - **Optimización**: 3 consultas SQL fijas.
+- SQL equivalente comentado en la vista.
+### URL 6: `/festivales/anio/<año>/` (`festivales_por_anio`)
+
+Lista los festivales que empiezan o terminan en el año indicado, ordenados por fecha de inicio.
+
+Requisitos que cumple:
+- **`re_path`**: `r'^festivales/anio/(?P<anio>[0-9]{4})/$'`, que solo admite años de 4 dígitos.
+- **Filtro con OR**: `filter(Q(fecha_inicio__year=anio) | Q(fecha_fin__year=anio))`.
+- **OneToOne**: recinto (`select_related('recinto')`).
+- **ManyToMany**: patrocinadores (`prefetch_related('patrocinadores')`).
+- **ManyToOne reversa**: escenarios (`prefetch_related('escenarios')`).
+- **ManyToMany con tabla intermedia**: actuaciones con artista y escenario (`Prefetch` sobre `actuacion_set`).
+- **`order_by`**: `fecha_inicio`.
+- **Optimización**: 4 consultas SQL fijas.
 - SQL equivalente comentado en la vista.

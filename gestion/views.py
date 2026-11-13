@@ -194,3 +194,30 @@ def festivales_por_anio(request, anio):
         'añio': anio,
     }
     return render(request, 'gestion/festivales_por_anio.html', contexto)
+
+def top_artistas(request):
+    # Muestra los 5 artistas más populares. Los ordena de mayor a menor
+    # popularidad (desempatando por nombre) y limita el resultado a 5.
+    # Para cada uno muestra su perfil (OneToOne), sus actuaciones con
+    # festival y escenario (ManyToMany con tabla intermedia Actuacion) y
+    # los asistentes que lo siguen (ManyToMany reversa).
+    #
+    # SQL equivalente (3 consultas):
+    #   -- 1) Top 5 artistas con su perfil (ORDER BY + LIMIT)
+    #   -- 2) Actuaciones de esos artistas con su festival y su escenario
+    #   -- 3) Asistentes que siguen a esos artistas
+    artistas = (
+        Artista.objects
+        .select_related('perfil')
+        .prefetch_related(
+            Prefetch(
+                'actuacion_set',
+                queryset=Actuacion.objects
+                .select_related('festival', 'escenario')
+                .order_by('fecha_hora'),
+            ),
+            'seguidores',
+        )
+        .order_by('-popularidad', 'nombre_artistico')[:5]
+    )
+    return render(request, 'gestion/top_artistas.html', {'artistas': artistas})
