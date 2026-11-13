@@ -14,8 +14,12 @@ Plataforma web para la **gestión de festivales de música**. Permite administra
 8. [Esquema entidad-relación](#8-esquema-entidad-relación)
 9. [Seeders](#9-seeders)
 10. [Comando con Faker](#10-comando-con-faker)
-11. [Backup con fixture](#11-backup-con-fixture)
-12. [Código no visto en clase](#12-código-no-visto-en-clase)
+11. [Backup y fixtures](#11-backup-y-fixtures)
+12. [Código no visto en clase (modelos, comandos y fixtures)](#12-código-no-visto-en-clase-modelos-comandos-y-fixtures)
+13. [URLs y vistas](#13-urls-y-vistas)
+14. [Páginas de error y modo producción](#14-páginas-de-error-y-modo-producción)
+15. [Cómo probar el proyecto](#15-cómo-probar-el-proyecto)
+16. [Código no visto en clase (URLs y vistas)](#16-código-no-visto-en-clase-urls-y-vistas)
 
 ---
 
@@ -28,16 +32,18 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 python3 manage.py migrate
-python3 manage.py seeders
+python3 manage.py loaddata gestion/fixtures/datos_pruebas.json
 python3 manage.py runserver
 ```
+
+Los pasos para probar el proyecto, con más detalle, están en la [sección 15](#15-cómo-probar-el-proyecto).
 
 - `python3 -m venv venv`: crea un entorno virtual aislado para las librerías del proyecto.
 - `source venv/bin/activate`: activa ese entorno.
 - `pip install -r requirements.txt`: instala las dependencias guardadas con sus versiones.
 - `pip freeze > requirements.txt`: guarda las dependencias instaladas (se usó para generar el archivo).
 - `django-admin startproject festivales .`: crea el proyecto en la carpeta actual. El punto final evita una carpeta duplicada `festivales/festivales/`.
-- `python3 manage.py startapp gestion`: crea la aplicación `gestion`, donde están los modelos.
+- `python3 manage.py startapp gestion`: crea la aplicación `gestion`, donde están los modelos y las vistas.
 - `python3 manage.py makemigrations`: genera los archivos de migración con las instrucciones para crear o modificar las tablas.
 - `python3 manage.py migrate`: ejecuta las migraciones sobre la base de datos (`db.sqlite3`).
 - `python3 manage.py check`: revisa el proyecto y avisa de errores sin ejecutarlo.
@@ -45,16 +51,40 @@ python3 manage.py runserver
 
 La aplicación `gestion` está registrada en `INSTALLED_APPS` dentro de `festivales/settings.py`.
 
+### Comandos propios del proyecto
+
+| Comando | Qué hace |
+|---|---|
+| `python3 manage.py seeders` | Rellena la base de datos con datos fijos de ejemplo. |
+| `python3 manage.py poblar` | Genera 10 registros aleatorios de cada modelo con Faker. |
+| `python3 manage.py poblar --cantidad N` | Igual, pero con `N` registros por modelo. |
+| `python3 manage.py dumpdata gestion --indent 2 --output gestion/fixtures/backup.json` | Crea el backup de los datos. |
+| `python3 manage.py loaddata gestion/fixtures/datos_pruebas.json` | Carga los datos de pruebas. |
+
 ---
 
 ## 2. Estructura de ramas de Git
 
 | Rama | Contenido |
 |---|---|
-| `main` | Rama principal. Contiene el `.gitignore` inicial. |
+| `main` | Rama principal. Contiene el proyecto completo, resultado de fusionar todas las demás. |
 | `Configuracion_inicial` | Proyecto Django, entorno y `requirements.txt`. |
 | `Modelos` | Modelos, migraciones, esquema E-R, seeders y comando Faker. |
-| `Backups` | Copia de seguridad de los datos (fixture). |
+| `Backups` | Todo lo anterior más la copia de seguridad de los datos (fixture). |
+| `Vistas` | Rama de la tarea de URLs y vistas. Reúne todas las ramas de URL. |
+| `url_festivales` | URL 2: lista de festivales. |
+| `url_detalle_festival` | URL 3: detalle de un festival. |
+| `url_artistas_genero` | URL 4: artistas por género. |
+| `url_entradas_festival` | URL 5: entradas de un festival. |
+| `url_festivales_anio` | URL 6: festivales por año. |
+| `url_top_artistas` | URL 7: artistas más populares. |
+| `url_estadisticas_entradas` | URL 8: estadísticas de entradas. |
+| `url_actuaciones_sin_escenario` | URL 9: actuaciones sin escenario. |
+| `url_asistentes` | URL 10: lista de asistentes. |
+| `errores_personalizados` | Páginas de error 400, 403, 404 y 500. |
+| `produccion_fixtures` | Modo producción y fixture de pruebas. |
+
+Cada rama de URL se fusionó en `Vistas`, y `Vistas` se fusionó en `main` al terminar.
 
 ---
 
@@ -275,7 +305,7 @@ Estos datos no pertenecen ni al artista ni al festival por separado, sino a la c
 
 ## 6. Tipos de campo usados
 
-Se usan **12 tipos distintos** , sin contar los campos de relación.
+Se usan **12 tipos distintos** (el mínimo era 10), sin contar los campos de relación.
 
 | Tipo | Qué guarda | Usado en |
 |---|---|---|
@@ -364,25 +394,31 @@ El comando respeta el orden de dependencias: primero `Recinto` y `Patrocinador`,
 
 ---
 
-## 11. Backup con fixture
+## 11. Backup y fixtures
 
-Copia de seguridad de todos los datos de la app `gestion` en formato JSON. Está en la rama `Backups`, en `gestion/fixtures/backup.json`.
+Hay dos fixtures en `gestion/fixtures/`:
 
-Crear el backup:
+| Archivo | Para qué sirve |
+|---|---|
+| `backup.json` | Copia de seguridad de los datos de la app `gestion` (rama `Backups`). |
+| `datos_pruebas.json` | Datos para probar las URLs. Incluye actuaciones sin escenario, para que la URL 9 muestre resultados. |
+
+Crear un fixture:
 
 ```bash
 python3 manage.py dumpdata gestion --indent 2 --output gestion/fixtures/backup.json
 ```
 
-Restaurarlo (con las migraciones ya aplicadas):
+Restaurarlo (con las migraciones ya aplicadas y la base de datos vacía):
 
 ```bash
-python3 manage.py loaddata gestion/fixtures/backup.json
+python3 manage.py migrate
+python3 manage.py loaddata gestion/fixtures/datos_pruebas.json
 ```
 
 ---
 
-## 12. Código no visto en clase
+## 12. Código no visto en clase (modelos, comandos y fixtures)
 
 ### Comandos propios y seeders
 
@@ -444,10 +480,14 @@ python3 manage.py loaddata gestion/fixtures/backup.json
 | `dumpdata gestion` | Vuelca a texto los datos de la app `gestion`. |
 | `--indent 2` | Formatea el JSON con sangría de 2 espacios para que sea legible. |
 | `--output archivo` | Guarda el resultado en un archivo en vez de mostrarlo en pantalla. |
-| `loaddata archivo` | Carga en la base de datos los datos de un fixture. |
+| `loaddata archivo` | Carga en la base de datos los datos de un fixture. Falla por claves duplicadas si ya existen. |
 | `rm db.sqlite3` | Borra la base de datos local para recrearla desde cero (se puede porque no se sube a git). |
 
+---
+
 ## 13. URLs y vistas
+
+Todas las vistas están en `gestion/views.py`, las URLs en `gestion/urls.py` y las plantillas en `gestion/templates/gestion/`. Cada vista lleva un comentario que explica qué hace y, en cada QuerySet, el SQL equivalente comentado.
 
 | # | URL | Vista | Plantilla |
 |---|---|---|---|
@@ -462,128 +502,150 @@ python3 manage.py loaddata gestion/fixtures/backup.json
 | 9 | `/actuaciones/sin-escenario/` | `actuaciones_sin_escenario` | `actuaciones_sin_escenario.html` |
 | 10 | `/asistentes/` | `lista_asistentes` | `lista_asistentes.html` |
 
+Todas las plantillas heredan de `base.html` con `{% extends %}`. El index (`/`) enlaza las 10 URLs.
+
+### URL 1: `/` (`index`)
+
+Menú principal con enlaces a todas las URLs del proyecto, con ejemplos que siempre devuelven resultados.
 
 ### URL 2: `/festivales/` (`lista_festivales`)
 
 Lista todos los festivales ordenados por fecha de inicio con todos sus datos relacionados.
 
-Requisitos que cumple:
-- **OneToOne**: recinto del festival (`select_related('recinto')`).
+- **OneToOne**: recinto (`select_related('recinto')`).
 - **ManyToMany**: patrocinadores (`prefetch_related('patrocinadores')`).
-- **Relación reversa**: escenarios del festival (`prefetch_related('escenarios')`).
-- **`order_by`**: ordenados por `fecha_inicio`.
-- **Optimización**: solo 3 consultas SQL, sin importar cuántos festivales haya.
-- SQL equivalente comentado en la vista.
+- **Relación reversa**: escenarios (`prefetch_related('escenarios')`).
+- **`order_by`**: `fecha_inicio`.
+- **Optimización**: 3 consultas SQL fijas.
+
 ### URL 3: `/festival/<int:id>/` (`detalle_festival`)
 
 Muestra un festival concreto con toda su información relacionada.
 
-Requisitos que cumple:
 - **Parámetro entero**: `<int:id>`.
-- **OneToOne**: recinto (`select_related('recinto')`).
-- **ManyToMany**: patrocinadores (`prefetch_related`).
-- **ManyToMany con tabla intermedia**: artistas a través de `Actuacion`, mostrando fecha, duración, caché y si está cancelada.
+- **OneToOne**: recinto.
+- **ManyToMany**: patrocinadores.
+- **ManyToMany con tabla intermedia**: artistas a través de `Actuacion`, con fecha, duración, caché y si está cancelada.
 - **ManyToOne**: escenarios y entradas, estas con su asistente.
-- **Filtro AND implícito**: `filter(festival=festival)` junto con el orden.
 - **Error 404** si el festival no existe (`get_object_or_404`).
-- **Optimización**: 5 consultas SQL fijas, sin importar el número de registros.
-- SQL equivalente comentado en la vista.
+- **Optimización**: 5 consultas SQL fijas.
 
 ### URL 4: `/artistas/<str:genero>/` (`artistas_por_genero`)
 
 Lista los artistas de un género con popularidad de 40 o más, de más a menos populares.
 
-Requisitos que cumple:
 - **Parámetro str**: `<str:genero>`.
 - **Filtro con AND**: `filter(genero=genero, popularidad__gte=40)`.
-- **OneToOne**: perfil del artista (`select_related('perfil')`).
+- **OneToOne**: perfil (`select_related('perfil')`).
 - **ManyToMany con tabla intermedia**: actuaciones con festival y escenario (`Prefetch` sobre `actuacion_set`).
-- **ManyToMany reversa**: asistentes que lo tienen como favorito (`prefetch_related('seguidores')`).
+- **ManyToMany reversa**: seguidores (`prefetch_related('seguidores')`).
 - **`order_by`**: `-popularidad`.
 - **Error 404** si el género no existe.
 - **Optimización**: 3 consultas SQL fijas.
-- SQL equivalente comentado en la vista.
 
 ### URL 5: `/festival/<int:id>/entradas/<str:tipo>/` (`entradas_festival`)
 
 Lista las entradas de un tipo (general, vip o abono) vendidas para un festival, de más a menos caras.
 
-Requisitos que cumple:
-- **Dos parámetros**: `<int:id>` (entero) y `<str:tipo>` (texto).
+- **Dos parámetros**: `<int:id>` y `<str:tipo>`.
 - **Filtro con AND**: `filter(festival=festival, tipo=tipo)`.
-- **ManyToOne**: entrada con su asistente (`select_related('asistente')`).
-- **OneToOne reversa**: carnet del asistente (`select_related('asistente__carnet')`).
-- **ManyToMany**: artistas favoritos del asistente (`prefetch_related('asistente__artistas_favoritos')`).
+- **ManyToOne**: entrada con su asistente.
+- **OneToOne reversa**: carnet (`select_related('asistente__carnet')`).
+- **ManyToMany**: artistas favoritos (`prefetch_related('asistente__artistas_favoritos')`).
 - **`order_by`**: `-precio`.
 - **Error 404** si el festival o el tipo no existen.
 - **Optimización**: 3 consultas SQL fijas.
-- SQL equivalente comentado en la vista.
+
 ### URL 6: `/festivales/anio/<año>/` (`festivales_por_anio`)
 
-Lista los festivales que empiezan o terminan en el año indicado, ordenados por fecha de inicio.
+Lista los festivales que empiezan o terminan en el año indicado.
 
-Requisitos que cumple:
-- **`re_path`**: `r'^festivales/anio/(?P<anio>[0-9]{4})/$'`, que solo admite años de 4 dígitos.
+- **`re_path`**: `r'^festivales/anio/(?P<anio>[0-9]{4})/$'`, solo admite años de 4 dígitos.
 - **Filtro con OR**: `filter(Q(fecha_inicio__year=anio) | Q(fecha_fin__year=anio))`.
-- **OneToOne**: recinto (`select_related('recinto')`).
-- **ManyToMany**: patrocinadores (`prefetch_related('patrocinadores')`).
-- **ManyToOne reversa**: escenarios (`prefetch_related('escenarios')`).
-- **ManyToMany con tabla intermedia**: actuaciones con artista y escenario (`Prefetch` sobre `actuacion_set`).
+- **OneToOne**: recinto.
+- **ManyToMany**: patrocinadores.
+- **ManyToOne reversa**: escenarios.
+- **ManyToMany con tabla intermedia**: actuaciones con artista y escenario.
 - **`order_by`**: `fecha_inicio`.
 - **Optimización**: 4 consultas SQL fijas.
-- SQL equivalente comentado en la vista.
 
 ### URL 7: `/artistas/top/` (`top_artistas`)
 
 Muestra los 5 artistas más populares.
 
-Requisitos que cumple:
-- **`order_by`**: `order_by('-popularidad', 'nombre_artistico')`, de mayor a menor y desempatando por nombre.
-- **Límite**: `[:5]`, que equivale a `LIMIT 5` en SQL.
-- **OneToOne**: perfil del artista (`select_related('perfil')`).
-- **ManyToMany con tabla intermedia**: actuaciones con festival y escenario (`Prefetch` sobre `actuacion_set`).
-- **ManyToMany reversa**: seguidores (`prefetch_related('seguidores')`).
+- **`order_by`**: `order_by('-popularidad', 'nombre_artistico')`.
+- **Límite**: `[:5]`, equivalente a `LIMIT 5`.
+- **OneToOne**: perfil.
+- **ManyToMany con tabla intermedia**: actuaciones con festival y escenario.
+- **ManyToMany reversa**: seguidores.
 - **Optimización**: 3 consultas SQL fijas.
-- SQL equivalente comentado en la vista.
-- La URL está declarada antes que `artistas/<str:genero>/` para que `top` no se interprete como un género.
+- Está declarada antes que `artistas/<str:genero>/` para que `top` no se interprete como un género.
+
 ### URL 8: `/estadisticas/entradas/` (`estadisticas_entradas`)
 
 Muestra estadísticas globales de las entradas vendidas y las 5 más caras.
 
-Requisitos que cumple:
-- **`aggregate`**: `Count`, `Sum`, `Avg`, `Max` y `Min` sobre las entradas. Incluye un agregado condicional (`Count('id', filter=Q(usada=True))`).
-- **ManyToOne**: entrada con su asistente y su festival (`select_related`).
-- **OneToOne**: carnet del asistente (`asistente__carnet`) y recinto del festival (`festival__recinto`).
+- **`aggregate`**: `Count`, `Sum`, `Avg`, `Max` y `Min`, incluyendo un agregado condicional (`Count('id', filter=Q(usada=True))`).
+- **ManyToOne**: entrada con su asistente y su festival.
+- **OneToOne**: carnet (`asistente__carnet`) y recinto (`festival__recinto`).
 - **`order_by`** y **límite**: `order_by('-precio')[:5]`.
-- **Optimización**: 2 consultas SQL en total.
-- SQL equivalente comentado en la vista.
+- **Optimización**: 2 consultas SQL.
 
 Investigación sobre `aggregate`: calcula un valor a partir de todas las filas de un QuerySet y devuelve un diccionario. Es una operación final: se ejecuta en el momento y no admite más filtros encadenados. Se diferencia de `annotate`, que añade el cálculo a cada objeto en lugar de devolver un único resultado.
+
 ### URL 9: `/actuaciones/sin-escenario/` (`actuaciones_sin_escenario`)
 
 Lista las actuaciones que todavía no tienen escenario asignado.
 
-Requisitos que cumple:
-- **Filtro con `None` en una tabla intermedia**: `filter(escenario__isnull=True)` sobre `Actuacion`, la tabla intermedia de la ManyToMany `Artista`-`Festival`.
-- **OneToOne**: perfil del artista (`artista__perfil`) y recinto del festival (`festival__recinto`).
-- **ManyToOne**: festival de la actuación (`select_related('festival')`).
-- **ManyToMany**: seguidores del artista (`prefetch_related('artista__seguidores')`).
-- **Relación reversa**: escenarios disponibles del festival (`prefetch_related('festival__escenarios')`).
+- **Filtro con `None` en una tabla intermedia**: `filter(escenario__isnull=True)` sobre `Actuacion`.
+- **OneToOne**: perfil del artista y recinto del festival.
+- **ManyToOne**: festival de la actuación.
+- **ManyToMany**: seguidores del artista (`artista__seguidores`).
+- **Relación reversa**: escenarios disponibles del festival (`festival__escenarios`).
 - **`order_by`**: `fecha_hora`.
 - **Optimización**: 3 consultas SQL fijas.
-- SQL equivalente comentado en la vista.
-- Los datos de prueba (`datos_pruebas.json`) incluyen actuaciones sin escenario para que la URL muestre resultados.
+- El fixture de pruebas incluye actuaciones sin escenario para que la URL muestre resultados.
+
 ### URL 10: `/asistentes/` (`lista_asistentes`)
 
 Lista todos los asistentes con su carnet, sus artistas favoritos y sus entradas.
 
-Requisitos que cumple:
-- **OneToOne**: carnet del asistente (`select_related('carnet')`).
-- **ManyToMany**: artistas favoritos (`prefetch_related('artistas_favoritos')`).
-- **ManyToOne reversa**: entradas del asistente con su festival (`Prefetch` sobre `entradas`).
-- **`order_by`**: por varios campos, `order_by('apellidos', 'nombre')`.
+- **OneToOne**: carnet (`select_related('carnet')`).
+- **ManyToMany**: artistas favoritos.
+- **ManyToOne reversa**: entradas con su festival (`Prefetch` sobre `entradas`).
+- **`order_by`**: `order_by('apellidos', 'nombre')`.
 - **Optimización**: 3 consultas SQL fijas.
-- SQL equivalente comentado en la vista.
+
+### Resumen de requisitos de la tarea
+
+| Requisito | Dónde se cumple |
+|---|---|
+| 10 URLs con vistas, QuerySet y plantillas | Tabla de la sección 13 |
+| Una rama por URL fusionada en `Vistas` | Ramas `url_*` (sección 2) |
+| Datos entre tablas ManyToMany, OneToOne y ManyToOne | URL 2 a 10 |
+| Comentario en cada vista | Todas |
+| SQL equivalente comentado en cada QuerySet | Todas |
+| 4 páginas de error personalizadas | Sección 14 |
+| Muestra toda la información de los modelos relacionados | Todas las plantillas |
+| Queries optimizadas | `select_related`, `prefetch_related` y `Prefetch` |
+| `re_path` | URL 6 |
+| Dos parámetros | URL 5 |
+| Parámetro entero | URL 3 y 5 |
+| Parámetro str | URL 4 y 5 |
+| Filtro AND | URL 4 y 5 |
+| Filtro OR | URL 6 |
+| `aggregate` | URL 8 |
+| Relación reversa | URL 2, 6, 9 y 10 |
+| `order_by` | Todas |
+| Límite | URL 7 y 8 |
+| Filtro con `None` en tabla intermedia | URL 9 |
+| Index con acceso a todas las URLs | URL 1 |
+| Fixture de pruebas | `gestion/fixtures/datos_pruebas.json` |
+| Modo producción | Sección 14 |
+
+---
+
+## 14. Páginas de error y modo producción
 
 ### Páginas de error personalizadas
 
@@ -594,6 +656,78 @@ Requisitos que cumple:
 | 404 | `error_404` | `errores/404.html` | Página o recurso no encontrado |
 | 500 | `error_500` | `errores/500.html` | Error interno del servidor |
 
-Se registran en `festivales/urls.py` con `handler400`, `handler403`, `handler404` y `handler500`.
-Solo se muestran con `DEBUG = False` (modo producción). La plantilla del error 500 es
-independiente de `base.html` para que no falle si el problema está en la plantilla base.
+Se registran en `festivales/urls.py` con `handler400`, `handler403`, `handler404` y `handler500`. La plantilla del error 500 es independiente de `base.html` para que no falle si el problema está en la plantilla base.
+
+### Modo producción
+
+En `festivales/settings.py`:
+
+```python
+DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+```
+
+Con `DEBUG = False` Django muestra las páginas de error personalizadas en lugar de las técnicas de depuración. El proyecto no depende de archivos estáticos (el CSS está dentro de `base.html`). Para ver el panel `/admin/` con estilos en pruebas:
+
+```bash
+python3 manage.py runserver --insecure
+```
+
+---
+
+## 15. Cómo probar el proyecto
+
+```bash
+git clone <URL-del-repositorio>
+cd festivales-django
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python3 manage.py migrate
+python3 manage.py loaddata gestion/fixtures/datos_pruebas.json
+python3 manage.py runserver
+```
+
+Abrir `http://127.0.0.1:8000/`. El index enlaza las 10 URLs.
+
+El fixture `datos_pruebas.json` contiene datos de todos los modelos y varias actuaciones sin escenario, para que la URL 9 muestre resultados. Debe cargarse en una base de datos vacía (recién migrada). Si ya hay datos, borrar `db.sqlite3` y repetir `migrate`.
+
+---
+
+## 16. Código no visto en clase (URLs y vistas)
+
+| Elemento | Explicación |
+|---|---|
+| `include('gestion.urls')` | Incluye las URLs de la app dentro de las del proyecto. |
+| `path('', vista, name='x')` | Asocia una URL a una vista. `name` permite usarla con `{% url 'x' %}`. |
+| `{% extends %}` y `{% block %}` | Herencia de plantillas: `base.html` define la estructura y cada página rellena sus bloques. |
+| `{% url 'nombre' valor %}` | Genera la URL a partir de su `name`, pasando los parámetros en orden. |
+| `{% for %} ... {% empty %}` | Bucle de plantilla. El bloque `empty` se muestra si no hay elementos. |
+| `forloop.counter` | Contador del bucle, empieza en 1. |
+| `get_<campo>_display` | Método que Django crea para campos con `choices`: devuelve el texto legible. |
+| `\|date:"d/m/Y"` | Filtro que da formato a una fecha. |
+| `\|default:0` | Muestra el valor indicado si el original es vacío o `None`. |
+| `\|floatformat:2` | Redondea un número a 2 decimales. |
+| `select_related('campo')` | Trae el objeto relacionado en la misma consulta con un `JOIN`. Para OneToOne y ForeignKey. |
+| `prefetch_related('campo')` | Hace una consulta aparte para ManyToMany o relaciones reversas y las une en Python. |
+| `Prefetch('rel', queryset=...)` | `prefetch_related` con una consulta propia, para optimizar lo que se trae. |
+| `actuacion_set` | Nombre automático de la relación inversa de una `ForeignKey` sin `related_name`. |
+| `'a__b'` | El doble guion bajo recorre relaciones encadenadas o aplica un filtro (`popularidad__gte`). |
+| `__gte`, `__year`, `__isnull` | Filtros: mayor o igual, año de una fecha, es `NULL`. |
+| `filter(a=1, b=2)` | Varias condiciones en un mismo `filter` se combinan con `AND`. |
+| `Q(a) \| Q(b)` | Une condiciones con `OR`. `&` es AND y `~Q()` es NOT. |
+| `'-campo'` en `order_by` | Orden descendente. Se pueden indicar varios campos. |
+| `queryset[:5]` | Límite de resultados, equivale a `LIMIT 5`. Va después de `order_by` y `filter`. |
+| `aggregate(x=Funcion('campo'))` | Calcula un valor sobre todas las filas y devuelve un diccionario. |
+| `Count`, `Sum`, `Avg`, `Max`, `Min` | Funciones de agregación (`COUNT`, `SUM`, `AVG`, `MAX`, `MIN`). |
+| `Count('id', filter=Q(...))` | Agregado condicional: cuenta solo las filas que cumplen la condición. |
+| `get_object_or_404` | Busca un objeto y, si no existe, devuelve un 404. |
+| `raise Http404(...)` | Lanza un error 404 manualmente. |
+| `<int:id>` y `<str:genero>` | Convertidores de URL: capturan un entero o un texto y lo pasan a la vista. |
+| `re_path(r'...', vista)` | URL con expresión regular. `(?P<anio>[0-9]{4})` es un grupo con nombre de 4 dígitos. |
+| `dict(Artista.GENEROS)` | Convierte la lista de `choices` en un diccionario `{valor: texto}`. |
+| `handler404 = 'gestion.views.error_404'` | Indica qué vista usa Django para ese error. Existen 400, 403, 404 y 500. |
+| `render(..., status=404)` | Fija el código HTTP de la respuesta. |
+| `DEBUG = False` y `ALLOWED_HOSTS` | Modo producción: oculta los errores técnicos y limita las direcciones permitidas. |
+| `runserver --insecure` | Sirve estáticos con `DEBUG = False`. Solo para pruebas. |
+| `.update(campo=valor)` | Modifica en una sola consulta todas las filas de un QuerySet. |
