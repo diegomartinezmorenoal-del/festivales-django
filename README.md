@@ -460,7 +460,7 @@ python3 manage.py loaddata gestion/fixtures/backup.json
 | 7 | `/artistas/top/` | `top_artistas` | `top_artistas.html` |
 | 8 | `/estadisticas/entradas/` | `estadisticas_entradas` | `estadisticas_entradas.html` |
 | 9 | `/actuaciones/sin-escenario/` | `actuaciones_sin_escenario` | `actuaciones_sin_escenario.html` |
-
+| 10 | `/asistentes/` | `lista_asistentes` | `lista_asistentes.html` |
 
 
 ### URL 2: `/festivales/` (`lista_festivales`)
@@ -573,3 +573,14 @@ Requisitos que cumple:
 - **Optimización**: 3 consultas SQL fijas.
 - SQL equivalente comentado en la vista.
 - Los datos de prueba (`datos_pruebas.json`) incluyen actuaciones sin escenario para que la URL muestre resultados.
+### URL 10: `/asistentes/` (`lista_asistentes`)
+
+Lista todos los asistentes con su carnet, sus artistas favoritos y sus entradas.
+
+Requisitos que cumple:
+- **OneToOne**: carnet del asistente (`select_related('carnet')`).
+- **ManyToMany**: artistas favoritos (`prefetch_related('artistas_favoritos')`).
+- **ManyToOne reversa**: entradas del asistente con su festival (`Prefetch` sobre `entradas`).
+- **`order_by`**: por varios campos, `order_by('apellidos', 'nombre')`.
+- **Optimización**: 3 consultas SQL fijas.
+- SQL equivalente comentado en la vista.

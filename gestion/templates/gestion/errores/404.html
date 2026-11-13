@@ -1,0 +1,11 @@
+{% extends 'gestion/base.html' %}
+
+{% block titulo %}Error 404{% endblock %}
+
+{% block contenido %}
+<div class="tarjeta">
+    <h1>Error 404: página no encontrada</h1>
+    <p>La página o el recurso que buscas no existe o ya no está disponible.</p>
+    <p><a href="{% url 'index' %}">Volver al inicio</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'gestion/base.html' %}
+
+{% block titulo %}Error 403{% endblock %}
+
+{% block contenido %}
+<div class="tarjeta">
+    <h1>Error 403: acceso prohibido</h1>
+    <p>No tienes permiso para ver esta página.</p>
+    <p><a href="{% url 'index' %}">Volver al inicio</a></p>
+</div>
+{% endblock %}

@@ -301,3 +301,30 @@ def lista_asistentes(request):
         .order_by('apellidos', 'nombre')
     )
     return render(request, 'gestion/lista_asistentes.html', {'asistentes': asistentes})
+
+def error_400(request, exception):
+    # Vista de error 400 (petición incorrecta): muestra la plantilla
+    # personalizada devolviendo el código de estado 400
+    return render(request, 'gestion/errores/400.html', status=400)
+
+
+def error_403(request, exception):
+    # Vista de error 403 (acceso prohibido): muestra la plantilla
+    # personalizada devolviendo el código de estado 403
+    return render(request, 'gestion/errores/403.html', status=403)
+
+
+def error_404(request, exception):
+    # Vista de error 404 (página no encontrada): muestra la plantilla
+    # personalizada devolviendo el código de estado 404
+    return render(request, 'gestion/errores/404.html', status=404)
+
+
+def error_500(request):
+    # Vista de error 500 (error interno del servidor): muestra la plantilla
+    # personalizada devolviendo el código de estado 500
+    return render(request, 'gestion/errores/500.html', status=500)
+
+from django.core.exceptions import PermissionDenied, SuspiciousOperation
+
+
