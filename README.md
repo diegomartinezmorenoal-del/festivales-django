@@ -584,3 +584,16 @@ Requisitos que cumple:
 - **`order_by`**: por varios campos, `order_by('apellidos', 'nombre')`.
 - **Optimización**: 3 consultas SQL fijas.
 - SQL equivalente comentado en la vista.
+
+### Páginas de error personalizadas
+
+| Error | Vista | Plantilla | Cuándo ocurre |
+|---|---|---|---|
+| 400 | `error_400` | `errores/400.html` | Petición incorrecta |
+| 403 | `error_403` | `errores/403.html` | Acceso prohibido |
+| 404 | `error_404` | `errores/404.html` | Página o recurso no encontrado |
+| 500 | `error_500` | `errores/500.html` | Error interno del servidor |
+
+Se registran en `festivales/urls.py` con `handler400`, `handler403`, `handler404` y `handler500`.
+Solo se muestran con `DEBUG = False` (modo producción). La plantilla del error 500 es
+independiente de `base.html` para que no falle si el problema está en la plantilla base.
